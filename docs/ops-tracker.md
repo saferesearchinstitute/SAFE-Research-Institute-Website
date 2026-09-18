@@ -37,7 +37,7 @@ These can be completed immediately while the application is pending.
 - [ ] Draft donor acknowledgment letter template ($250+ gifts)
 - [ ] Register for charitable solicitation in California (Form CT-1, $50 fee, within 30 days of first donation)
 - [ ] Research multi-state charitable solicitation requirements (~40 states require registration)
-- [ ] File Form 5768 to elect 501(h) expenditure test (clear lobbying dollar limits)
+- [x] File Form 5768 to elect 501(h) expenditure test (FILED, confirmed 2026-07-23; election effective tax year ending 12/31/2025) (clear lobbying dollar limits)
 
 ### Governance
 - [ ] Hold organizational board meeting — adopt bylaws, elect officers, authorize ops
