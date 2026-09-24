@@ -22,7 +22,7 @@ const policyEmptyState = document.getElementById('policyEmptyState');
 const searchInput = document.getElementById('policySearch');
 const typeFilter = document.getElementById('typeFilter');
 const categoryFilter = document.getElementById('categoryFilter');
-const stateFilter = document.getElementById('stateFilter');
+
 const resultsCount = document.getElementById('policyResultsCount');
 
 // --- State ---
@@ -114,15 +114,6 @@ function formatDate(dateStr) {
 }
 
 /**
- * Count applicable states from stateApplicability array.
- */
-function stateCountLabel(states) {
-  if (!states || !Array.isArray(states)) return '';
-  if (states.includes('All States')) return 'All states';
-  return states.length + ' applicable state' + (states.length !== 1 ? 's' : '');
-}
-
-/**
  * Build a single color-coded policy card element.
  */
 function buildPolicyCard(policy) {
@@ -169,17 +160,9 @@ function buildPolicyCard(policy) {
   summaryEl.textContent = policy.summary || '';
   body.appendChild(summaryEl);
 
-  // Footer: state count + date
+  // Footer: date
   const footer = document.createElement('div');
   footer.className = 'policy-card-footer';
-
-  const statesLabel = document.createElement('span');
-  statesLabel.textContent = stateCountLabel(policy.stateApplicability);
-  footer.appendChild(statesLabel);
-
-  const dot = document.createElement('span');
-  dot.className = 'dot';
-  footer.appendChild(dot);
 
   const dateLabel = document.createElement('span');
   dateLabel.textContent = 'Updated ' + formatDate(policy.updatedAt);
@@ -239,7 +222,6 @@ function filterPolicies() {
   const searchTerm = searchInput.value.trim().toLowerCase();
   const selectedType = typeFilter.value;
   const selectedCategory = categoryFilter.value;
-  const selectedState = stateFilter.value;
 
   let filtered = allPolicies;
 
@@ -253,13 +235,6 @@ function filterPolicies() {
     filtered = filtered.filter(p => p.category === selectedCategory);
   }
 
-  // State filter
-  if (selectedState !== 'All') {
-    filtered = filtered.filter(p => {
-      const states = p.stateApplicability || [];
-      return states.includes(selectedState) || states.includes('All States');
-    });
-  }
 
   // Text search across title and summary
   if (searchTerm) {
@@ -285,5 +260,4 @@ function bindEvents() {
 
   typeFilter.addEventListener('change', filterPolicies);
   categoryFilter.addEventListener('change', filterPolicies);
-  stateFilter.addEventListener('change', filterPolicies);
 }

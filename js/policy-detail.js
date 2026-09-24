@@ -184,15 +184,7 @@ function renderPolicy(policy) {
   // Title
   policyTitle.textContent = policy.title || '';
 
-  // States
   policyStates.replaceChildren();
-  const states = policy.stateApplicability || [];
-  states.forEach(state => {
-    const badge = document.createElement('span');
-    badge.className = 'state-badge';
-    badge.textContent = state;
-    policyStates.appendChild(badge);
-  });
 
   // Date
   if (policy.updatedAt) {
