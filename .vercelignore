@@ -3,3 +3,4 @@ google-apps-script/
 functions/
 firestore.rules
 firestore.indexes.json
+.draft-preview/

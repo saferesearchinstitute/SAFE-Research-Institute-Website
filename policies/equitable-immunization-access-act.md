@@ -13,7 +13,7 @@ status: "published"
 
 # Equitable Immunization Access: A Policy Analysis
 
-> **Educational example — not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
+> **Educational example, not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
 
 This educational example examines an approach relating to public health; requiring the identification and remediation of immunization deserts; establishing mobile vaccination programs, community health worker initiatives, and multilingual outreach; creating the Immunization Equity Fund; and providing for related matters.
 

@@ -13,7 +13,7 @@ status: "published"
 
 # Medical-Only Immunization Exemption Standards: A Policy Analysis
 
-> **Educational example — not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
+> **Educational example, not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
 
 ## Section 1: Purpose and Findings
 
@@ -21,7 +21,7 @@ status: "published"
 
 (1) Childhood immunization is one of the most effective public health interventions in modern medicine, preventing millions of cases of serious illness and death annually.
 
-(2) Research has documented an association between medical-only exemption standards and higher childhood vaccination rates. For example, CDC kindergarten vaccination surveys for the 2023–24 school year reported that West Virginia — which at that time limited exemptions to medical grounds — was among the states with the highest MMR coverage, at approximately 98 percent, alongside a very low non-medical exemption rate. State exemption laws continue to change through legislation, executive action, and litigation, and current requirements vary by state.
+(2) Research has documented an association between medical-only exemption standards and higher childhood vaccination rates. For example, CDC kindergarten vaccination surveys for the 2023–24 school year reported that West Virginia, which at that time limited exemptions to medical grounds, was among the states with the highest MMR coverage, at approximately 98 percent, alongside a very low non-medical exemption rate. State exemption laws continue to change through legislation, executive action, and litigation, and current requirements vary by state.
 
 (3) In 2015, following a measles outbreak linked to Disneyland in Anaheim, California, the California Legislature enacted SB 277, eliminating personal belief exemptions from school immunization requirements. Vaccination rates increased measurably in the years following enactment.
 

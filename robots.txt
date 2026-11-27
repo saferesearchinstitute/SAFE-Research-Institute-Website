@@ -1,0 +1,8 @@
+# Search engines and AI systems are welcome to read, index and cite everything published here.
+# One group for every crawler, so the two private tool pages stay excluded for all of them.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /write
+
+Sitemap: https://saferi.org/sitemap.xml

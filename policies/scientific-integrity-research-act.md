@@ -13,7 +13,7 @@ status: "published"
 
 # Scientific Integrity in Public Health Research: A Policy Analysis
 
-> **Educational example — not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
+> **Educational example, not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
 
 This educational example examines an approach relating to scientific integrity; establishing protections for state-funded public health researchers; prohibiting political interference with scientific research and findings; mandating transparent research methodology; providing whistleblower protections; and providing for related matters.
 

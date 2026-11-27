@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Articles | SAFE Research Institute</title>
+  <meta name="description" content="Expert contributions from physicians, scientists, and policy analysts on evidence-based public health, regulatory science, and clinical integrity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://saferi.org/blog">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SAFE Research Institute">
+  <meta property="og:title" content="Research Articles | SAFE Research Institute">
+  <meta property="og:description" content="Expert contributions from physicians, scientists, and policy analysts on evidence-based public health, regulatory science, and clinical integrity.">
+  <meta property="og:url" content="https://saferi.org/blog">
+  <meta property="og:image" content="https://saferi.org/img/og/default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="img/logo-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<a class="skip-link" href="#main">Skip to content</a>
+<!-- ===== HEADER / NAV ===== -->
+<header class="site-header">
+  <nav class="nav-wrapper" aria-label="Main">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SAFE Research Institute" width="140" height="66"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="library.html">Evidence Library</a>
+      <a href="education.html">Education</a>
+      <a href="about.html">About</a>
+      <a href="donate.html" class="nav-cta">Donate</a>
+    </div>
+  </nav>
+</header>
+
+
+<main id="main">
+<!-- ===== HERO ===== -->
+<section class="legal-hero">
+  <div class="container">
+    <div class="section-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
+      Expert Contributions
+    </div>
+    <h1>Research Articles</h1>
+    <p>Insights and analysis from physicians, scientists, and policy analysts committed to evidence-based discourse on public health, clinical integrity, and regulatory science.</p>
+  </div>
+</section>
+
+<!-- ===== SEARCH & FILTERS ===== -->
+<section class="section" style="padding:48px 0 0;">
+  <div class="container">
+    <div class="blog-filters">
+      <div class="blog-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="blog-search-icon">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="blogSearch" placeholder="Search articles..." aria-label="Search articles" class="form-control">
+      </div>
+      <div class="blog-category-filter">
+        <select id="categoryFilter" class="form-control" aria-label="Filter by category">
+          <option value="All">All Categories</option>
+          <option value="Science">Science</option>
+          <option value="Policy">Policy</option>
+          <option value="Public Health">Public Health</option>
+          <option value="Opinion">Opinion</option>
+          <option value="How-To">How-To</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLE GRID ===== -->
+<section class="section" id="articles" style="padding-top:48px;">
+  <div class="container">
+    <div class="blog-grid" id="blogGrid">
+      <!-- Articles loaded dynamically by js/blog.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="empty-state-icon">
+        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      </svg>
+      <h3>No articles published yet</h3>
+      <p>Check back soon for expert contributions from our research community.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTICLE MODAL ===== -->
+<div class="article-modal" id="articleModal" aria-hidden="true" role="dialog" aria-label="Article detail">
+  <div class="article-modal-backdrop" id="modalBackdrop"></div>
+  <div class="article-modal-panel">
+    <button class="article-modal-close" id="modalClose" aria-label="Close article">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="article-modal-header">
+      <span class="article-modal-category" id="modalCategory"></span>
+      <h1 id="modalTitle"></h1>
+      <div class="article-modal-meta">
+        <img id="modalAuthorPhoto" src="" alt="" class="article-modal-avatar">
+        <div>
+          <span class="article-modal-author" id="modalAuthorName"></span>
+          <span class="article-modal-date" id="modalDate"></span>
+        </div>
+      </div>
+    </div>
+    <div class="article-content" id="modalBody">
+      <!-- Rendered Markdown content -->
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-about">
+        <h3>About the Foundation</h3>
+        <p>During its initial years, the Foundation operates primarily through volunteer support. Activities are conducted virtually using secure digital collaboration tools. Foundation policy is that publications are reviewed by the Scientific Advisory Board prior to release.</p>
+        <p>The Foundation is affiliated with the Science and Freedom for Everyone Action Fund ("SAFE Action"), a separate legal entity organized under Section 501(c)(4) of the Internal Revenue Code. The two entities maintain separate governance, separate bank accounts, and separate financial records. The Foundation does not engage in political campaign activity and does not use its funds to support the political or legislative activities of SAFE Action. Any administrative costs shared between the two entities are allocated based on documented relative use and reimbursed at fair market value.</p>
+        <address class="footer-address">
+          <strong>Science and Freedom for Everyone Foundation</strong><br>
+          1119 S Mission Rd, Box 316<br>
+          Fallbrook, CA 92028-3225
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <a href="library.html">Evidence Library</a>
+        <a href="education.html">Education</a>
+        <a href="about.html#leadership">Leadership</a>
+        <a href="about.html#sab">Scientific Advisory Board</a>
+        <a href="volunteer.html">Volunteer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support and governance</h4>
+        <p>100% of donations go towards our mission.</p>
+        <a href="donate.html">Donate</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="conflict-of-interest.html">Conflict of Interest</a>
+        <a href="gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a>
+      </div>
+    </div>
+    <div class="footer-nondiscrimination">
+      The Foundation makes all educational resources available to the public on a non-discriminatory basis, without regard to race, color, national origin, religion, sex, age, disability, sexual orientation, gender identity, political affiliation, or any other protected characteristic.
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-tax">
+        <p>&copy; 2026 Science and Freedom for Everyone Foundation. Materials are released under open licenses (CC0 1.0 and CC BY 4.0); the Foundation's names and logos are reserved.</p>
+        <p>The Science and Freedom for Everyone Foundation is a California nonprofit public benefit corporation. The Internal Revenue Service has recognized the Foundation as exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code and classified it as a public charity under Section 170(b)(1)(A)(vi). Contributions to the Foundation are tax-deductible to the extent allowed by law.</p>
+        <p>Tax ID (EIN): 41-2910356</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script type="module" src="js/blog.js"></script>
+</body>
+</html>

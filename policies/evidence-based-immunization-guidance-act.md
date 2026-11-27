@@ -13,7 +13,7 @@ status: "published"
 
 # Evidence-Based Immunization Guidance: A Policy Analysis
 
-> **Educational example — not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
+> **Educational example, not proposed legislation.** This document is provided by the SAFE Research Institute for educational analysis of how a policy approach might be structured. It is not a bill, and its inclusion here is not a recommendation to adopt any measure.
 
 This educational example examines an approach relating to public health; authorizing the state department of health to establish immunization recommendations based on guidance from recognized medical professional organizations; and providing for related matters.
 
