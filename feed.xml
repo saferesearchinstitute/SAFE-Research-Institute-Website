@@ -1,10 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>SAFE Research Institute: publications and news</title>
-  <subtitle>Reports and announcements from the SAFE Research Institute, the educational platform of the Science and Freedom for Everyone Foundation.</subtitle>
+  <title>SAFE Research Institute: Evidence Library</title>
+  <subtitle>Documents published by the SAFE Research Institute, the educational platform of the Science and Freedom for Everyone Foundation.</subtitle>
   <link href="https://saferi.org/feed.xml" rel="self" type="application/atom+xml"/>
-  <link href="https://saferi.org/research" rel="alternate" type="text/html"/>
+  <link href="https://saferi.org/library" rel="alternate" type="text/html"/>
   <id>https://saferi.org/</id>
-  <updated>2026-11-27T00:00:00Z</updated>
+  <updated>2026-03-14T00:00:00Z</updated>
   <author><name>SAFE Research Institute</name></author>
+  <entry>
+    <title>Scientific Integrity in Public Health Research: A Policy Analysis</title>
+    <link href="https://saferi.org/library/scientific-integrity-research-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/scientific-integrity-research-act</id>
+    <updated>2026-03-14T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Establishes protections for state-funded public health researchers against political interference, mandates transparent research methodology and timely publication of findings, prohibits suppression or alteration of scientific conclusions for political purposes, and creates enforceable whistleblower protections for researchers who report violations.</summary>
+  </entry>
+  <entry>
+    <title>Pharmacist Immunization Authority: A Policy Analysis</title>
+    <link href="https://saferi.org/library/pharmacist-immunization-authority-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/pharmacist-immunization-authority-act</id>
+    <updated>2026-03-14T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Permanently expands pharmacist scope of practice to administer all FDA-approved and FDA-authorized vaccines to individuals aged three and older without requiring a physician referral or prescriptive authority, codifying flexibilities first established under the federal PREP Act during the COVID-19 public health emergency.</summary>
+  </entry>
+  <entry>
+    <title>Equitable Immunization Access: A Policy Analysis</title>
+    <link href="https://saferi.org/library/equitable-immunization-access-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/equitable-immunization-access-act</id>
+    <updated>2026-03-14T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Requires state health departments to identify and address immunization deserts, mandates the establishment of mobile vaccination units, community health worker immunization programs, and multilingual outreach initiatives to eliminate disparities in vaccination rates based on race, income, geography, and language.</summary>
+  </entry>
+  <entry>
+    <title>Medical-Only Immunization Exemption Standards: A Policy Analysis</title>
+    <link href="https://saferi.org/library/medical-only-immunization-exemption-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/medical-only-immunization-exemption-act</id>
+    <updated>2026-03-13T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Establishes medical-only exemption standards for school and childcare immunization requirements, permitting only physician-certified medical exemptions from vaccination schedules.</summary>
+  </entry>
+  <entry>
+    <title>Interstate Public Health Collaboration: An Educational Overview</title>
+    <link href="https://saferi.org/library/interstate-public-health-collaboration-resolution" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/interstate-public-health-collaboration-resolution</id>
+    <updated>2026-03-13T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Affirms the state legislature's support for interstate public health collaborations involving shared epidemiological data, coordinated immunization guidance, and joint emergency preparedness planning among participating states.</summary>
+  </entry>
+  <entry>
+    <title>Insurance Coverage for Immunizations: A Policy Analysis</title>
+    <link href="https://saferi.org/library/vaccine-coverage-guarantee-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/vaccine-coverage-guarantee-act</id>
+    <updated>2026-03-13T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Requires all state-regulated health insurance plans to provide coverage for immunizations recommended by the state health department without cost-sharing, copayments, or prior authorization, ensuring no resident faces financial barriers to vaccination.</summary>
+  </entry>
+  <entry>
+    <title>Expanding Immunization Provider Access: A Policy Analysis</title>
+    <link href="https://saferi.org/library/immunization-provider-access-expansion-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/immunization-provider-access-expansion-act</id>
+    <updated>2026-03-13T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Expands the categories of healthcare professionals authorized to administer vaccines under appropriate supervision, including registered pharmacy technicians, certified medical assistants, and nursing students, to address immunization access gaps particularly in underserved communities.</summary>
+  </entry>
+  <entry>
+    <title>Evidence-Based Immunization Guidance: A Policy Analysis</title>
+    <link href="https://saferi.org/library/evidence-based-immunization-guidance-act" rel="alternate" type="text/html"/>
+    <id>https://saferi.org/library/evidence-based-immunization-guidance-act</id>
+    <updated>2026-03-13T00:00:00Z</updated>
+    <category term="Model policy document"/>
+    <summary>Authorizes state health departments to establish immunization recommendations based on guidance from recognized medical professional organizations, creating a framework for state-level immunization scheduling independent of federal advisory processes.</summary>
+  </entry>
 </feed>

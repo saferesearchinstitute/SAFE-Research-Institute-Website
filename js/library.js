@@ -1,39 +1,48 @@
 /* ============================================
-   SAFE Research Institute - Research reports
-   The table in research.html is the single list of reports and news.
-   This script (1) draws the cover for the newest report,
-   (2) on the home page, copies the newest rows from research.html into
-   the "Latest" section, and (3) on research.html, offers a Reports / News
-   filter once the list holds both kinds.
+   SAFE Research Institute - Evidence Library
+   The table in library.html is the single list of published work.
+   This script (1) draws the cover for the newest document,
+   (2) on the home page, copies the newest rows from library.html, and
+   (3) on library.html, offers a filter by type once the list holds
+   more than one type.
+   Columns: Title, Type, Topic, Updated, PDF.
    ============================================ */
 
 (function () {
-  const HOME_ROWS = 5;
+  const HOME_ROWS = 10;
+  const TYPE = 1, DATE = 3;
 
-  function isNews(row) {
+  const cellText = (row, i) => {
     const cells = row.querySelectorAll('td');
-    return cells.length > 2 && cells[2].textContent.trim().toLowerCase() === 'news';
-  }
+    return cells.length > i ? cells[i].textContent.trim() : '';
+  };
+  const isNews = row => cellText(row, TYPE).toLowerCase() === 'news';
 
   function setUpFilter(rows) {
     const bar = document.getElementById('listFilter');
     if (!bar) return;
-    const kinds = new Set(rows.map(r => (isNews(r) ? 'news' : 'report')));
-    if (kinds.size < 2) return;
-    bar.hidden = false;
-    bar.querySelectorAll('button').forEach(btn => {
+    const types = Array.from(new Set(rows.map(r => cellText(r, TYPE)).filter(Boolean)));
+    if (types.length < 2) return;
+    const make = (label, value) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label;
       btn.addEventListener('click', () => {
         bar.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        const show = btn.dataset.show;
-        rows.forEach(r => { r.hidden = show !== 'all' && (isNews(r) ? 'news' : 'report') !== show; });
+        rows.forEach(r => { r.hidden = value !== null && cellText(r, TYPE) !== value; });
       });
-    });
+      bar.appendChild(btn);
+      return btn;
+    };
+    make('All', null).classList.add('active');
+    types.forEach(t => make(t, t));
+    bar.hidden = false;
   }
 
   function buildCover(row, slot) {
     if (!row || !slot || row.querySelector('.data-table-empty')) return;
     const cells = row.querySelectorAll('td');
-    if (cells.length < 3) return;
+    if (cells.length < 4) return;
     const link = cells[0].querySelector('a');
     const cover = document.createElement(link ? 'a' : 'div');
     cover.className = 'report-cover';
@@ -49,15 +58,15 @@
     const mid = document.createElement('div');
     const type = document.createElement('div');
     type.className = 'report-cover-type';
-    type.textContent = cells[2].textContent.trim();
+    type.textContent = cellText(row, TYPE);
     const title = document.createElement('div');
     title.className = 'report-cover-title';
-    title.textContent = cells[0].textContent.trim();
+    title.textContent = cellText(row, 0);
     mid.append(type, title);
 
     const foot = document.createElement('div');
     foot.className = 'report-cover-foot';
-    foot.append('SAFE Research Institute', document.createElement('br'), cells[1].textContent.trim());
+    foot.append('SAFE Research Institute', document.createElement('br'), cellText(row, DATE));
 
     cover.append(mark, mid, foot);
     slot.replaceChildren(cover);
@@ -65,30 +74,29 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const slot = document.getElementById('featuredCover');
-    const full = document.getElementById('reportsTable');
+    const full = document.getElementById('libraryTable');
     const latest = document.getElementById('latestReports');
 
     if (full) {
       const rows = Array.from(full.querySelectorAll('tbody tr'));
+      // the cover shows the newest document, even when a news item is newer
       buildCover(rows.find(r => !isNews(r)), slot);
       setUpFilter(rows);
       return;
     }
     if (!latest) return;
 
-    fetch('research.html')
-      .then(res => (res.ok ? res.text() : Promise.reject(new Error('research.html: ' + res.status))))
+    fetch('library.html')
+      .then(res => (res.ok ? res.text() : Promise.reject(new Error('library.html: ' + res.status))))
       .then(html => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
-        const rows = Array.from(doc.querySelectorAll('#reportsTable tbody tr')).slice(0, HOME_ROWS);
-        if (!rows.length) return;
+        const all = Array.from(doc.querySelectorAll('#libraryTable tbody tr'));
+        if (!all.length) return;
         const body = latest.querySelector('tbody');
-        body.replaceChildren(...rows.map(r => document.importNode(r, true)));
-        // the cover shows the newest report, even when a news item is newer
-        const all = Array.from(doc.querySelectorAll('#reportsTable tbody tr'));
+        body.replaceChildren(...all.slice(0, HOME_ROWS).map(r => document.importNode(r, true)));
         const newest = all.find(r => !isNews(r));
         buildCover(newest ? document.importNode(newest, true) : null, slot);
       })
-      .catch(() => { /* the static row linking to the Research page stays in place */ });
+      .catch(() => { /* the static row linking to the library stays in place */ });
   });
 })();

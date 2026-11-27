@@ -1,4 +1,13 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/policy", "has": [{ "type": "query", "key": "id", "value": "(?<id>[a-z0-9-]+)" }], "destination": "/library/:id", "permanent": false },
+    { "source": "/policy", "destination": "/library", "permanent": false },
+    { "source": "/policies", "destination": "/library", "permanent": false },
+    { "source": "/research", "destination": "/library", "permanent": false },
+    { "source": "/blog", "destination": "/library", "permanent": false },
+    { "source": "/videos", "destination": "/library", "permanent": false },
+    { "source": "/seminars", "destination": "/", "permanent": false }
+  ]
 }

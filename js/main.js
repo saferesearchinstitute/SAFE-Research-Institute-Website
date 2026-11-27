@@ -23,14 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mark the current page in the navigation ---
     // The header markup is identical on every page; this sets aria-current.
     const here = (location.pathname.split('/').pop() || 'index').replace(/\.html$/, '') || 'index';
-    const inReports = /\/(reports|news)\//.test(location.pathname);
+    const inLibrary = /\/(library|news)\//.test(location.pathname);
     const section = {
-      research: 'research', blog: 'research',
-      education: 'education', seminars: 'education', videos: 'education',
-      policies: 'policies', policy: 'policies',
+      library: 'library', policy: 'library',
+      education: 'education',
       about: 'about', donate: 'donate'
-    }[here];
-    const current = inReports ? 'research' : section;
+        }[here];
+    const current = inLibrary ? 'library' : section;
     navLinks.querySelectorAll('a').forEach(link => {
       const target = link.getAttribute('href').split('/').pop().replace(/\.html$/, '');
       if (current && target === current) link.setAttribute('aria-current', 'page');
