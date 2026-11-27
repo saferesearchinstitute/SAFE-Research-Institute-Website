@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateSummary() {
     freqLabel.textContent = selectedFrequency === 'monthly' ? 'monthly' : 'one-time';
-    amountLabel.textContent = selectedAmount || '0';
+    amountLabel.textContent = selectedAmount || '—';
 
     // Update donate button href
     const links = stripeLinks[selectedFrequency];
