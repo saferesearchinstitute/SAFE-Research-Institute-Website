@@ -213,9 +213,25 @@ def figure_html(alt, src, caption, source, img_base, ctx):
         fig += (f"<section class=\"place-lookup\" data-lookup='{html.escape(json.dumps(cfg), quote=False).replace(chr(39), '&#39;')}'>"
                 f'<h3>{html.escape(look.get("title", "Find your state"))}</h3>'
                 + (f'<p>{inline(look["intro"])}</p>' if look.get("intro") else "")
+                + lookup_map_html(look, ctx)
                 + f'<div class="place-lookup-body"><details class="figure-data"><summary>All {n} rows</summary>{table}</details>'
                 f'<p class="figure-downloads">Download: <a href="{img_base}{html.escape(look["data"])}" download>data (CSV)</a></p></div></section>')
     return fig
+
+def lookup_map_html(look, ctx):
+    """A state map above the lookup's chooser. It colors states by one of the listed columns of the
+    lookup's own table; js/figures.js draws it. Without scripts the table below it is the fallback."""
+    m = look.get("map")
+    if not m:
+        return ""
+    ctx.needs_map = True
+    cfg = {"key": look["key"], "measures": m["measures"]}
+    cap = inline(m.get("caption", "")) + (f'<span class="figure-source">{inline(m["source"])}</span>' if m.get("source") else "")
+    return (f"<figure class=\"place-map\" data-map='{html.escape(json.dumps(cfg), quote=False).replace(chr(39), '&#39;')}'>"
+            f'<div class="place-map-toggle" role="group" aria-label="Measure shown on the map" hidden></div>'
+            f'<div class="place-map-chart" hidden></div>'
+            f'<p class="place-map-hint" hidden>Select a state on the map, or use the State menu below.</p>'
+            f"<figcaption>{cap}</figcaption></figure>")
 
 class Ctx:
     """What the markdown converter needs to know about one publication's files."""

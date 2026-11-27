@@ -16,3 +16,13 @@ Notes
 - No photo shows a face. None is AI-generated. None shows patients or children.
 - Attribution is not legally required for the public domain items; a credit line is shown under each photo anyway.
 - Downloaded and rejected after viewing: a second streamgage photo (Tohickon Creek, CC0; cluttered composition) and an aerial of the Webberville Solar Farm (CC0; aircraft strut in frame, soft). There is still no usable solar photograph and no photograph of a public meeting room.
+
+## Map shapes
+
+State maps in interactive reports draw their outlines from `us-atlas` 3.0.1 (`states-albers-10m.json`), loaded at view time from jsDelivr at that exact version with an integrity hash. The file is not stored in this repository.
+
+| Item | Author / credit | License | Source |
+|---|---|---|---|
+| U.S. state boundaries | U.S. Census Bureau cartographic boundary files (2017 edition), packaged as `us-atlas` by Mike Bostock | Census boundary files are public domain; the `us-atlas` package is under the ISC license | https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-albers-10m.json and https://data.jsdelivr.com/v1/packages/npm/us-atlas |
+
+Checked 2026-11-27.

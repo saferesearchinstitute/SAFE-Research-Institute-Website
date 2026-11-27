@@ -247,7 +247,71 @@
   }
 
   // ---------- "find your state" ----------
-  function setUpLookup(box) {
+  // ---------- state map inside the lookup: toggle between measures, click to select ----------
+  function setUpLookupMap(box, data, key, shapes) {
+    const fig = box.querySelector('.place-map');
+    if (!fig || !shapes) return;
+    let cfg;
+    try { cfg = JSON.parse(fig.dataset.map); } catch (e) { return; }
+    const holder = fig.querySelector('.place-map-chart');
+    const toggle = fig.querySelector('.place-map-toggle');
+    const hint = fig.querySelector('.place-map-hint');
+    const feats = shapes.features.filter(f => byFips.has(f.id));
+    const rowBy = new Map(data.rows.map(d => [String(d[key]), d]));
+    const rowOf = f => rowBy.get(byFips.get(f.id).postal);
+    const unit = m => (m.unit ? ' ' + m.unit : '');
+    const state = { measure: cfg.measures[0], place: null };
+
+    function render() {
+      const width = Math.max(280, Math.floor(holder.clientWidth));
+      const m = state.measure;
+      const chart = Plot.plot({
+        width, height: Math.round(width * 610 / 975) + 46,
+        projection: { type: 'identity', domain: { type: 'FeatureCollection', features: feats } },
+        style: { fontFamily: 'inherit', fontSize: width < 520 ? '11px' : '12.5px', color: C.ink, background: '#fff', overflow: 'visible' },
+        // one sequential ramp, light to dark; no red-green pairing
+        color: { type: 'quantize', scheme: 'Purples', n: 6, legend: true, label: width < 520 ? (m.unit || m.label) : m.label + (m.unit ? ' (' + m.unit + ')' : ''), unknown: '#f1f0f5' },
+        marks: [
+          Plot.geo(feats, { fill: f => (rowOf(f) ? rowOf(f)[m.field] : null), stroke: '#6f6b86', strokeWidth: 0.6 }),
+          Plot.geo(feats.filter(f => state.place != null && byFips.get(f.id).postal === String(state.place)), { fill: 'none', stroke: C.ink, strokeWidth: 3 }),
+          Plot.tip(feats, Plot.pointer(Plot.centroid({
+            title: f => [byFips.get(f.id).name].concat(cfg.measures.map(x => `${x.label}: ${fmt(rowOf(f) ? rowOf(f)[x.field] : null)}${unit(x)}`)).join('\n')
+          })))
+        ]
+      });
+      chart.style.cursor = 'pointer';
+      chart.addEventListener('click', () => {
+        const f = chart.value;
+        if (f && f.id && byFips.has(f.id)) document.dispatchEvent(new CustomEvent('place:select', { detail: { key, value: byFips.get(f.id).postal } }));
+      });
+      holder.replaceChildren(chart);
+      holder.setAttribute('role', 'img');
+      holder.setAttribute('aria-label', 'Map of the United States shaded by ' + m.label + (state.place ? '. Selected: ' + placeName(state.place) : ''));
+    }
+
+    cfg.measures.forEach((m, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = m.label;
+      btn.setAttribute('aria-pressed', String(i === 0));
+      btn.classList.toggle('active', i === 0);
+      btn.addEventListener('click', () => {
+        state.measure = m;
+        toggle.querySelectorAll('button').forEach(b => { b.classList.toggle('active', b === btn); b.setAttribute('aria-pressed', String(b === btn)); });
+        render();
+      });
+      toggle.appendChild(btn);
+    });
+    holder.hidden = false;
+    hint.hidden = false;
+    toggle.hidden = cfg.measures.length < 2;
+    render();
+    let last = holder.clientWidth;
+    new ResizeObserver(() => { if (Math.abs(holder.clientWidth - last) > 12) { last = holder.clientWidth; render(); } }).observe(holder);
+    document.addEventListener('place:select', e => { if (e.detail.key === key) { state.place = e.detail.value; render(); } });
+  }
+
+  function setUpLookup(box, shapes) {
     let cfg;
     try { cfg = JSON.parse(box.dataset.lookup); } catch (e) { return; }
     const table = box.querySelector('table');
@@ -270,6 +334,7 @@
     controls.className = 'place-controls';
     controls.append(label, select);
     box.querySelector('.place-lookup-body').prepend(controls, out);
+    setUpLookupMap(box, data, cfg.key, shapes);
 
     function show(value, announce) {
       const row = data.rows.find(r => String(r[cfg.key]) === String(value));
@@ -298,10 +363,10 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const figures = Array.from(document.querySelectorAll('figure[data-chart]'));
-    const needsMap = figures.some(f => /"type"\s*:\s*"map"/.test(f.dataset.chart));
+    const needsMap = figures.some(f => /"type"\s*:\s*"map"/.test(f.dataset.chart)) || !!document.querySelector('.place-map');
     const start = shapes => {
       figures.forEach(f => setUp(f, shapes));
-      document.querySelectorAll('.place-lookup[data-lookup]').forEach(setUpLookup);
+      document.querySelectorAll('.place-lookup[data-lookup]').forEach(box => setUpLookup(box, shapes));
     };
     const src = document.documentElement.dataset.usAtlas;
     if (needsMap && window.topojson && src) {

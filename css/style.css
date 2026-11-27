@@ -392,6 +392,16 @@ a.report-cover:hover { color: #fff; background: var(--ink); }
 .pub-figure.scrolly > .figure-steps li.is-active { border-left-color: var(--coral); color: var(--ink); }
 .place-lookup { border: 1px solid var(--rule); border-top: 4px solid var(--teal); padding: 18px 22px 14px; margin: 0 0 30px; }
 .place-lookup h3 { margin: 0 0 10px; }
+.place-map { margin: 0 0 18px; }
+.place-map-toggle { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.place-map-toggle[hidden], .place-map-chart[hidden], .place-map-hint[hidden] { display: none; }
+.place-map-toggle button { font: inherit; font-size: 0.9rem; font-weight: 500; padding: 7px 14px; border: 1.5px solid var(--rule); border-radius: 4px; background: #fff; color: var(--ink); cursor: pointer; }
+.place-map-toggle button.active { border-color: var(--aubergine); background: var(--aubergine); color: #fff; }
+.place-map-chart { border: 1px solid var(--rule); background: #fff; padding: 10px 8px 4px; overflow: hidden; }
+.place-map-chart svg { max-width: 100%; height: auto; display: block; }
+.place-map-chart figure { margin: 0; }
+.place-map-hint { font-size: 0.86rem; color: var(--muted); margin: 8px 0 0; }
+.place-map figcaption { font-size: 0.9rem; color: var(--text); margin-top: 8px; }
 .place-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; max-width: 420px; }
 .place-controls label { font-weight: 600; color: var(--ink); font-size: 0.92rem; }
 .place-result { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; margin-bottom: 14px; }
