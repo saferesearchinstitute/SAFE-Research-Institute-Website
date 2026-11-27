@@ -339,6 +339,34 @@ a.report-cover:hover { color: #fff; background: var(--ink); }
 .featured-report h2 { font-size: 1.55rem; margin-bottom: 10px; }
 .featured-report p { max-width: var(--measure); margin-bottom: 10px; }
 
+/* --- Library search --- */
+.library-search { margin: 6px 0 4px; max-width: 560px; }
+.library-search[hidden] { display: none; }
+.library-search label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.library-search-status { font-size: 0.9rem; color: var(--muted); min-height: 1.4em; margin-top: 6px; }
+.list-filter-label { font-size: 0.86rem; color: var(--muted); align-self: center; min-width: 44px; }
+
+/* --- Publication page --- */
+.pub-kind { font-size: 0.95rem; font-weight: 500; color: var(--teal-deep); margin-bottom: 8px; }
+.pub-meta { display: flex; flex-wrap: wrap; gap: 12px 34px; font-size: 0.92rem; margin-bottom: 22px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.pub-meta dt { color: var(--muted); font-size: 0.82rem; }
+.pub-meta dd { color: var(--ink); }
+.pub-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.key-findings { border: 1px solid var(--rule); border-top: 4px solid var(--teal); background: var(--mist-tint); padding: 20px 24px 10px; margin-bottom: 32px; }
+.report-body .key-findings h2 { margin: 0 0 10px; font-size: 1.2rem; }
+.pub-figure { margin: 26px 0 30px; }
+.pub-figure img { width: 100%; height: auto; border: 1px solid var(--rule); background: #fff; }
+.pub-figure figcaption { font-size: 0.9rem; color: var(--text); margin-top: 10px; }
+.figure-source { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+.pub-table { font-size: 0.93rem; }
+.pub-table td:first-child { padding-left: 0; }
+.pub-references { font-size: 0.93rem; }
+.cite-block { border: 1px solid var(--rule); border-left: 4px solid var(--aubergine); padding: 16px 20px 6px; margin-top: 40px; }
+.report-body .cite-block h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.cite-text { font-size: 0.95rem; overflow-wrap: anywhere; }
+.draft-banner { background: #B03A2E; color: #fff; text-align: center; font-weight: 600; padding: 10px 16px; position: sticky; top: 0; z-index: 20; }
+.is-draft .publication { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='300'%3E%3Ctext x='40' y='190' font-family='Helvetica,Arial,sans-serif' font-size='82' font-weight='700' fill='%23B03A2E' fill-opacity='0.09' transform='rotate(-24 210 150)'%3EDRAFT%3C/text%3E%3C/svg%3E"); }
+
 /* --- Report page --- */
 .report-head { padding: 44px 0 40px; border-bottom: 1px solid var(--rule); }
 .report-head .container { display: grid; grid-template-columns: 312px minmax(0, 1fr); gap: 48px; align-items: center; }

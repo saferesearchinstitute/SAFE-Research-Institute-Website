@@ -1,0 +1,23 @@
+# SAFE Research Institute
+
+> The SAFE Research Institute is the educational platform of the Science and Freedom for Everyone Foundation, a 501(c)(3) public charity. It publishes plain-language analyses of peer-reviewed research on science and technology topics. Everything is free to read, download and cite. The Institute takes no position on any bill.
+
+Each document below is available as a web page, a PDF and a clean markdown file. The markdown links are listed here.
+
+## Model policy documents
+
+- [Scientific Integrity in Public Health Research: A Policy Analysis](https://saferi.org/library/scientific-integrity-research-act.md): Establishes protections for state-funded public health researchers against political interference, mandates transparent research methodology and timely publication of findings, prohibits suppression or alteration of scientific conclusions for political purposes, and creates enforceable whistleblower protections for researchers who report violations.
+- [Pharmacist Immunization Authority: A Policy Analysis](https://saferi.org/library/pharmacist-immunization-authority-act.md): Permanently expands pharmacist scope of practice to administer all FDA-approved and FDA-authorized vaccines to individuals aged three and older without requiring a physician referral or prescriptive authority, codifying flexibilities first established under the federal PREP Act during the COVID-19 public health emergency.
+- [Equitable Immunization Access: A Policy Analysis](https://saferi.org/library/equitable-immunization-access-act.md): Requires state health departments to identify and address immunization deserts, mandates the establishment of mobile vaccination units, community health worker immunization programs, and multilingual outreach initiatives to eliminate disparities in vaccination rates based on race, income, geography, and language.
+- [Insurance Coverage for Immunizations: A Policy Analysis](https://saferi.org/library/vaccine-coverage-guarantee-act.md): Requires all state-regulated health insurance plans to provide coverage for immunizations recommended by the state health department without cost-sharing, copayments, or prior authorization, ensuring no resident faces financial barriers to vaccination.
+- [Medical-Only Immunization Exemption Standards: A Policy Analysis](https://saferi.org/library/medical-only-immunization-exemption-act.md): Establishes medical-only exemption standards for school and childcare immunization requirements, permitting only physician-certified medical exemptions from vaccination schedules.
+- [Interstate Public Health Collaboration: An Educational Overview](https://saferi.org/library/interstate-public-health-collaboration-resolution.md): Affirms the state legislature's support for interstate public health collaborations involving shared epidemiological data, coordinated immunization guidance, and joint emergency preparedness planning among participating states.
+- [Expanding Immunization Provider Access: A Policy Analysis](https://saferi.org/library/immunization-provider-access-expansion-act.md): Expands the categories of healthcare professionals authorized to administer vaccines under appropriate supervision, including registered pharmacy technicians, certified medical assistants, and nursing students, to address immunization access gaps particularly in underserved communities.
+- [Evidence-Based Immunization Guidance: A Policy Analysis](https://saferi.org/library/evidence-based-immunization-guidance-act.md): Authorizes state health departments to establish immunization recommendations based on guidance from recognized medical professional organizations, creating a framework for state-level immunization scheduling independent of federal advisory processes.
+
+## Optional
+
+- [Evidence Library](https://saferi.org/library): the full list with filters and search
+- [Atom feed](https://saferi.org/feed.xml): new documents as they are published
+- [About the Foundation](https://saferi.org/about): board, commitments and tax status
+- [Terms of Use](https://saferi.org/terms): licenses for each type of material

@@ -1,0 +1,75 @@
+# Interstate Public Health Collaboration: An Educational Overview
+
+Model policy document. SAFE Research Institute, Science and Freedom for Everyone Foundation.
+Published March 1, 2026. Version of March 13, 2026.
+License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).
+Page: https://saferi.org/library/interstate-public-health-collaboration-resolution
+PDF: https://saferi.org/library/pdf/interstate-public-health-collaboration-resolution.pdf
+
+> Affirms the state legislature's support for interstate public health collaborations involving shared epidemiological data, coordinated immunization guidance, and joint emergency preparedness planning among participating states.
+
+> **About this document.** The following is an *annotated example* of resolution language, provided for educational illustration of how a state legislature might formally express support for interstate public health cooperation. It is offered as a template for study and adaptation, not as a recommendation by the SAFE Research Institute that any legislature adopt it or take any particular action. Resolution drafting conventions ("WHEREAS… NOW, THEREFORE, BE IT RESOLVED") are reproduced here so readers can see how such instruments are typically structured.
+
+**A RESOLUTION** affirming the commitment of the State of [STATE] to interstate cooperation in maintaining evidence-based public health standards, epidemiological surveillance, and emergency preparedness.
+
+*Introduced by [SPONSOR(S)]*
+
+---
+
+**WHEREAS,** the protection of public health is a fundamental responsibility of state government, grounded in the police power reserved to the states under the Tenth Amendment to the United States Constitution; and
+
+**WHEREAS,** infectious diseases do not respect state boundaries, and the effective prevention and control of communicable disease requires coordinated action among jurisdictions; and
+
+**WHEREAS,** states have collaborated on matters of public health through mechanisms such as interstate compacts, mutual aid agreements, and regional health partnerships; and
+
+**WHEREAS,** more recent regional public health alliances, such as the West Coast Health Alliance, formed in 2025 among California, Oregon, Washington, and Hawaii, reflect growing interest in multi-state coordination on evidence-based immunization guidance, the sharing of epidemiological surveillance data, and public health laboratory capacity; and
+
+**WHEREAS,** disruptions to federal public health advisory processes, reductions in federal epidemiological capacity, or delays in federal immunization guidance may create gaps in public health protection that states must be prepared to address collectively; and
+
+**WHEREAS,** the sharing of real-time epidemiological data among states enables earlier detection of disease outbreaks, more accurate risk assessment, and more effective deployment of countermeasures; and
+
+**WHEREAS,** coordinated interstate procurement of vaccines and public health supplies can reduce costs, ensure equitable distribution, and strengthen supply chain resilience for all participating states; and
+
+**WHEREAS,** the residents of this state benefit when neighboring and allied states maintain robust immunization programs, as high regional vaccination coverage reduces the risk of disease importation and interstate transmission; and
+
+**WHEREAS,** interstate public health collaboration strengthens the capacity of each participating state while respecting the sovereignty and legislative authority of every jurisdiction involved;
+
+**NOW, THEREFORE, BE IT RESOLVED** by the [Legislature/General Assembly/General Court] of the State of [STATE]:
+
+**Section 1.** That this body affirms its support for the participation of the State of [STATE] in interstate public health collaborations, compacts, and agreements that advance evidence-based immunization practice and communicable disease prevention.
+
+**Section 2.** That the state department of health is encouraged to enter into memoranda of understanding or data-sharing agreements with counterpart agencies in other states for the purpose of:
+
+(a) Sharing epidemiological surveillance data, including immunization coverage rates, disease incidence reports, and outbreak investigation findings;
+
+(b) Coordinating evidence-based immunization schedules informed by the guidance of recognized medical professional organizations;
+
+(c) Establishing joint procurement arrangements for vaccines and public health supplies to improve cost efficiency and supply chain reliability;
+
+(d) Conducting collaborative public health workforce training and emergency preparedness exercises.
+
+**Section 3.** That the governor is encouraged to designate a representative to participate in regional and national forums dedicated to interstate public health coordination, and to report annually to the legislature on the status and outcomes of such collaborations.
+
+**Section 4.** That nothing in this resolution shall be construed to cede the legislative authority of this state, to bind this state to any obligation requiring the expenditure of funds not otherwise appropriated, or to supersede any existing state law or regulation.
+
+**Section 5.** That copies of this resolution shall be transmitted to the governor, the director of the state department of health, and the presiding officers of the legislatures of every other state.
+
+## Policy Considerations
+
+This model resolution represents one approach to formalizing interstate public health cooperation. Legislators considering this template should evaluate:
+
+- Implications for state sovereignty and legislative authority when entering data-sharing agreements or joint procurement arrangements with other states
+- Privacy and data security considerations when sharing epidemiological surveillance data across state lines, including compatibility with varying state health information privacy laws
+- Whether joint procurement arrangements may conflict with existing state procurement statutes or create dependencies on other states' purchasing decisions
+- Fiscal impact on state budgets and healthcare systems
+- Compatibility with existing state statutes and regulatory frameworks
+
+The SAFE Research Institute presents this material as an educational resource and does not advocate for or against any specific legislative outcome. The resolution text above is an illustrative example of legislative drafting, reproduced for study; its inclusion here is not an endorsement of its adoption.
+
+---
+
+*This document is provided by the SAFE Research Institute as an educational resource. It is not legal advice. It is offered to inform analysis and discussion, not to promote the adoption of any particular measure. Readers should consult qualified professionals regarding their existing legislative procedures and constitutional provisions.*
+
+---
+
+Suggested citation: SAFE Research Institute. (2026). Interstate Public Health Collaboration: An Educational Overview (Model policy document, version of March 13, 2026). Science and Freedom for Everyone Foundation. https://saferi.org/library/interstate-public-health-collaboration-resolution

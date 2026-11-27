@@ -53,90 +53,98 @@
 <section class="section" id="library">
   <div class="container">
     <div class="featured-report">
-      <div id="featuredCover"></div>
+      <div id="featuredCover">
+          <!-- LIBRARY-COVER:START -->
+<a class="report-cover" href="library/scientific-integrity-research-act.html">
+      <img class="report-cover-mark" src="img/logo-mark.svg" alt="" width="68" height="68">
+      <div>
+        <div class="report-cover-type">Model policy document</div>
+        <div class="report-cover-title">Scientific Integrity in Public Health Research: A Policy Analysis</div>
+      </div>
+      <div class="report-cover-foot">SAFE Research Institute<br>Version of March 14, 2026</div>
+    </a>
+          <!-- LIBRARY-COVER:END -->
+      </div>
       <div>
         <h2>Everything the Institute has published</h2>
-        <p>Newest first. Every document has its own page and a PDF, free to read and download with no sign-up.</p>
+        <p>Newest first. Every document has its own page, a PDF and a plain-text copy, free to read and download with no sign-up.</p>
         <p class="feed-link"><a href="feed.xml">Atom feed</a> of new documents</p>
       </div>
     </div>
-    <div class="list-filter" id="listFilter" hidden></div>
+    <form class="library-search" id="librarySearch" role="search" hidden>
+      <label for="libraryQuery">Search the library</label>
+      <input type="search" id="libraryQuery" class="form-control" placeholder="Search titles, summaries and full text" autocomplete="off">
+      <p class="library-search-status" id="libraryStatus" aria-live="polite"></p>
+    </form>
+    <div class="list-filter" id="typeFilter" data-column="1" data-name="Type" hidden></div>
+    <div class="list-filter" id="topicFilter" data-column="2" data-name="Topic" hidden></div>
     <div class="table-wrap">
       <!--
-        THE ONE LIST of published work, newest first. The home page, the cover block,
-        feed.xml and sitemap.xml are all made from this table. Steps: docs/templates/README.md
-        Only list what is published. Nothing scheduled, nothing "coming soon".
-
-        A row (five cells: Title, Type, Topic, Updated, PDF):
-        <tr>
-          <td><a href="library/<slug>.html">Title</a></td>
-          <td data-label="Type">Monthly report</td>
-          <td data-label="Topic">Energy</td>
-          <td data-label="Updated"><time datetime="2026-12-15">December 15, 2026</time></td>
-          <td data-label="PDF"><a href="library/pdf/<slug>.pdf">PDF</a></td>
-        </tr>
-
-        A news item links to news/<slug>.html, has Type exactly "News", and empty Topic and PDF cells.
+        These rows are written by docs/templates/build_site.py from the markdown files in
+        policies/ and publications/. Do not edit them by hand; add a markdown file and run the build.
+        Only published work is listed. Steps: docs/templates/README.md
       -->
       <table class="data-table library-table stack" id="libraryTable">
         <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Topic</th><th scope="col">Updated</th><th scope="col">PDF</th></tr></thead>
         <tbody>
-              <tr>
-                <td><a href="library/scientific-integrity-research-act.html">Scientific Integrity in Public Health Research: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Research Freedom</td>
-                <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/scientific-integrity-research-act.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/pharmacist-immunization-authority-act.html">Pharmacist Immunization Authority: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Scope of Practice</td>
-                <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/pharmacist-immunization-authority-act.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/equitable-immunization-access-act.html">Equitable Immunization Access: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Health Equity &amp; Access</td>
-                <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/equitable-immunization-access-act.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/vaccine-coverage-guarantee-act.html">Insurance Coverage for Immunizations: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Consumer Protection</td>
-                <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/vaccine-coverage-guarantee-act.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/medical-only-immunization-exemption-act.html">Medical-Only Immunization Exemption Standards: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Public Health Infrastructure</td>
-                <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/medical-only-immunization-exemption-act.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/interstate-public-health-collaboration-resolution.html">Interstate Public Health Collaboration: An Educational Overview</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Public Health Infrastructure</td>
-                <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/interstate-public-health-collaboration-resolution.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/immunization-provider-access-expansion-act.html">Expanding Immunization Provider Access: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Regulatory Reform</td>
-                <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/immunization-provider-access-expansion-act.pdf">PDF</a></td>
-              </tr>
-              <tr>
-                <td><a href="library/evidence-based-immunization-guidance-act.html">Evidence-Based Immunization Guidance: A Policy Analysis</a></td>
-                <td data-label="Type">Model policy document</td>
-                <td data-label="Topic">Clinical Integrity</td>
-                <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
-                <td data-label="PDF"><a href="library/pdf/evidence-based-immunization-guidance-act.pdf">PDF</a></td>
-              </tr>
+          <!-- LIBRARY-ROWS:START -->
+          <tr data-id="scientific-integrity-research-act">
+            <td><a href="library/scientific-integrity-research-act.html">Scientific Integrity in Public Health Research: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/scientific-integrity-research-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="pharmacist-immunization-authority-act">
+            <td><a href="library/pharmacist-immunization-authority-act.html">Pharmacist Immunization Authority: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/pharmacist-immunization-authority-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="equitable-immunization-access-act">
+            <td><a href="library/equitable-immunization-access-act.html">Equitable Immunization Access: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/equitable-immunization-access-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="vaccine-coverage-guarantee-act">
+            <td><a href="library/vaccine-coverage-guarantee-act.html">Insurance Coverage for Immunizations: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/vaccine-coverage-guarantee-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="medical-only-immunization-exemption-act">
+            <td><a href="library/medical-only-immunization-exemption-act.html">Medical-Only Immunization Exemption Standards: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/medical-only-immunization-exemption-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="interstate-public-health-collaboration-resolution">
+            <td><a href="library/interstate-public-health-collaboration-resolution.html">Interstate Public Health Collaboration: An Educational Overview</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/interstate-public-health-collaboration-resolution.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="immunization-provider-access-expansion-act">
+            <td><a href="library/immunization-provider-access-expansion-act.html">Expanding Immunization Provider Access: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/immunization-provider-access-expansion-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="evidence-based-immunization-guidance-act">
+            <td><a href="library/evidence-based-immunization-guidance-act.html">Evidence-Based Immunization Guidance: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/evidence-based-immunization-guidance-act.pdf" download>PDF</a></td>
+          </tr>
+          <!-- LIBRARY-ROWS:END -->
         </tbody>
       </table>
     </div>

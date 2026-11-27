@@ -1,102 +1,92 @@
 /* ============================================
    SAFE Research Institute - Evidence Library
-   The table in library.html is the single list of published work.
-   This script (1) draws the cover for the newest document,
-   (2) on the home page, copies the newest rows from library.html, and
-   (3) on library.html, offers a filter by type once the list holds
-   more than one type.
+   The rows in library.html are written into the page by the build
+   (docs/templates/build_site.py), so the list reads without JavaScript.
+   This script adds filters by type and topic and a full-text search
+   that uses library/search-index.json.
    Columns: Title, Type, Topic, Updated, PDF.
    ============================================ */
 
 (function () {
-  const HOME_ROWS = 10;
-  const TYPE = 1, DATE = 3;
-
-  const cellText = (row, i) => {
-    const cells = row.querySelectorAll('td');
-    return cells.length > i ? cells[i].textContent.trim() : '';
-  };
-  const isNews = row => cellText(row, TYPE).toLowerCase() === 'news';
-
-  function setUpFilter(rows) {
-    const bar = document.getElementById('listFilter');
-    if (!bar) return;
-    const types = Array.from(new Set(rows.map(r => cellText(r, TYPE)).filter(Boolean)));
-    if (types.length < 2) return;
-    const make = (label, value) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = label;
-      btn.addEventListener('click', () => {
-        bar.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
-        rows.forEach(r => { r.hidden = value !== null && cellText(r, TYPE) !== value; });
-      });
-      bar.appendChild(btn);
-      return btn;
-    };
-    make('All', null).classList.add('active');
-    types.forEach(t => make(t, t));
-    bar.hidden = false;
-  }
-
-  function buildCover(row, slot) {
-    if (!row || !slot || row.querySelector('.data-table-empty')) return;
-    const cells = row.querySelectorAll('td');
-    if (cells.length < 4) return;
-    const link = cells[0].querySelector('a');
-    const cover = document.createElement(link ? 'a' : 'div');
-    cover.className = 'report-cover';
-    if (link) cover.href = link.getAttribute('href');
-
-    const mark = document.createElement('img');
-    mark.className = 'report-cover-mark';
-    mark.src = 'img/logo-mark.svg';
-    mark.alt = '';
-    mark.width = 68;
-    mark.height = 68;
-
-    const mid = document.createElement('div');
-    const type = document.createElement('div');
-    type.className = 'report-cover-type';
-    type.textContent = cellText(row, TYPE);
-    const title = document.createElement('div');
-    title.className = 'report-cover-title';
-    title.textContent = cellText(row, 0);
-    mid.append(type, title);
-
-    const foot = document.createElement('div');
-    foot.className = 'report-cover-foot';
-    foot.append('SAFE Research Institute', document.createElement('br'), cellText(row, DATE));
-
-    cover.append(mark, mid, foot);
-    slot.replaceChildren(cover);
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
-    const slot = document.getElementById('featuredCover');
-    const full = document.getElementById('libraryTable');
-    const latest = document.getElementById('latestReports');
+    const table = document.getElementById('libraryTable');
+    if (!table) return;
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const cellText = (row, i) => (row.cells[i] ? row.cells[i].textContent.trim() : '');
+    const state = { filters: {}, hits: null };
 
-    if (full) {
-      const rows = Array.from(full.querySelectorAll('tbody tr'));
-      // the cover shows the newest document, even when a news item is newer
-      buildCover(rows.find(r => !isNews(r)), slot);
-      setUpFilter(rows);
-      return;
+    function apply() {
+      let shown = 0;
+      rows.forEach(row => {
+        const okFilters = Object.entries(state.filters).every(([col, value]) => value === null || cellText(row, Number(col)) === value);
+        const okSearch = state.hits === null || state.hits.has(row.dataset.id);
+        row.hidden = !(okFilters && okSearch);
+        if (!row.hidden) shown += 1;
+      });
+      return shown;
     }
-    if (!latest) return;
 
-    fetch('library.html')
-      .then(res => (res.ok ? res.text() : Promise.reject(new Error('library.html: ' + res.status))))
-      .then(html => {
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        const all = Array.from(doc.querySelectorAll('#libraryTable tbody tr'));
-        if (!all.length) return;
-        const body = latest.querySelector('tbody');
-        body.replaceChildren(...all.slice(0, HOME_ROWS).map(r => document.importNode(r, true)));
-        const newest = all.find(r => !isNews(r));
-        buildCover(newest ? document.importNode(newest, true) : null, slot);
-      })
-      .catch(() => { /* the static row linking to the library stays in place */ });
+    // --- Filters: a bar appears only when its column holds two or more values ---
+    document.querySelectorAll('.list-filter').forEach(bar => {
+      const col = bar.dataset.column;
+      const values = Array.from(new Set(rows.map(r => cellText(r, Number(col))).filter(Boolean)));
+      if (values.length < 2) return;
+      const label = document.createElement('span');
+      label.className = 'list-filter-label';
+      label.textContent = bar.dataset.name;
+      bar.appendChild(label);
+      const make = (text, value) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = text;
+        btn.setAttribute('aria-pressed', 'false');
+        btn.addEventListener('click', () => {
+          bar.querySelectorAll('button').forEach(b => {
+            b.classList.toggle('active', b === btn);
+            b.setAttribute('aria-pressed', String(b === btn));
+          });
+          state.filters[col] = value;
+          apply();
+        });
+        bar.appendChild(btn);
+        return btn;
+      };
+      const all = make('All', null);
+      all.classList.add('active');
+      all.setAttribute('aria-pressed', 'true');
+      values.forEach(v => make(v, v));
+      state.filters[col] = null;
+      bar.hidden = false;
+    });
+
+    // --- Search: titles, summaries and full text, from a prebuilt index ---
+    const form = document.getElementById('librarySearch');
+    const input = document.getElementById('libraryQuery');
+    const status = document.getElementById('libraryStatus');
+    if (!form || !input) return;
+    form.hidden = false;
+    form.addEventListener('submit', e => e.preventDefault());
+    let index = null;
+    const load = () => index || (index = fetch('library/search-index.json')
+      .then(res => (res.ok ? res.json() : []))
+      .then(items => items.map(it => ({ id: it.id, hay: [it.title, it.summary, it.type, it.topic, it.text].join(' ').toLowerCase() })))
+      .catch(() => []));
+    input.addEventListener('focus', load, { once: true });
+    input.addEventListener('input', () => {
+      const terms = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) {
+        state.hits = null;
+        apply();
+        status.textContent = '';
+        return;
+      }
+      load().then(items => {
+        state.hits = new Set(items.filter(it => terms.every(t => it.hay.includes(t))).map(it => it.id));
+        const shown = apply();
+        status.textContent = shown === 0
+          ? 'No documents match. Try fewer or different words.'
+          : shown + (shown === 1 ? ' document matches.' : ' documents match.');
+      });
+    });
   });
 })();

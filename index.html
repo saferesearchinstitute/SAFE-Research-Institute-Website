@@ -62,11 +62,22 @@
   </div>
 </section>
 
-<!-- ===== EVIDENCE LIBRARY (rows are copied from library.html by js/library.js) ===== -->
+<!-- ===== EVIDENCE LIBRARY (rows and cover are written by docs/templates/build_site.py) ===== -->
 <section class="section" id="library">
   <div class="container">
     <div class="featured-report">
-      <div id="featuredCover"></div>
+      <div id="featuredCover">
+          <!-- LIBRARY-COVER:START -->
+<a class="report-cover" href="library/scientific-integrity-research-act.html">
+      <img class="report-cover-mark" src="img/logo-mark.svg" alt="" width="68" height="68">
+      <div>
+        <div class="report-cover-type">Model policy document</div>
+        <div class="report-cover-title">Scientific Integrity in Public Health Research: A Policy Analysis</div>
+      </div>
+      <div class="report-cover-foot">SAFE Research Institute<br>Version of March 14, 2026</div>
+    </a>
+          <!-- LIBRARY-COVER:END -->
+      </div>
       <div>
         <h2>Evidence Library</h2>
         <p>Everything the Institute has published, newest first. Free to read and download as a PDF, with no sign-up.</p>
@@ -74,9 +85,68 @@
       </div>
     </div>
     <div class="table-wrap">
-      <table class="data-table library-table stack" id="latestReports">
+      <table class="data-table library-table stack" id="latestTable">
         <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Topic</th><th scope="col">Updated</th><th scope="col">PDF</th></tr></thead>
-        <tbody><tr><td class="data-table-empty" colspan="5">The list of published documents is in the <a href="library.html">Evidence Library</a>.</td></tr></tbody>
+        <tbody>
+          <!-- LIBRARY-ROWS:START -->
+          <tr data-id="scientific-integrity-research-act">
+            <td><a href="library/scientific-integrity-research-act.html">Scientific Integrity in Public Health Research: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/scientific-integrity-research-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="pharmacist-immunization-authority-act">
+            <td><a href="library/pharmacist-immunization-authority-act.html">Pharmacist Immunization Authority: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/pharmacist-immunization-authority-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="equitable-immunization-access-act">
+            <td><a href="library/equitable-immunization-access-act.html">Equitable Immunization Access: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-14">March 14, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/equitable-immunization-access-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="vaccine-coverage-guarantee-act">
+            <td><a href="library/vaccine-coverage-guarantee-act.html">Insurance Coverage for Immunizations: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/vaccine-coverage-guarantee-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="medical-only-immunization-exemption-act">
+            <td><a href="library/medical-only-immunization-exemption-act.html">Medical-Only Immunization Exemption Standards: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/medical-only-immunization-exemption-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="interstate-public-health-collaboration-resolution">
+            <td><a href="library/interstate-public-health-collaboration-resolution.html">Interstate Public Health Collaboration: An Educational Overview</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/interstate-public-health-collaboration-resolution.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="immunization-provider-access-expansion-act">
+            <td><a href="library/immunization-provider-access-expansion-act.html">Expanding Immunization Provider Access: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/immunization-provider-access-expansion-act.pdf" download>PDF</a></td>
+          </tr>
+          <tr data-id="evidence-based-immunization-guidance-act">
+            <td><a href="library/evidence-based-immunization-guidance-act.html">Evidence-Based Immunization Guidance: A Policy Analysis</a></td>
+            <td data-label="Type">Model policy document</td>
+            <td data-label="Topic">Public health</td>
+            <td data-label="Updated"><time datetime="2026-03-13">March 13, 2026</time></td>
+            <td data-label="PDF"><a href="library/pdf/evidence-based-immunization-guidance-act.pdf" download>PDF</a></td>
+          </tr>
+          <!-- LIBRARY-ROWS:END -->
+        </tbody>
       </table>
     </div>
     <div class="standards">
@@ -181,6 +251,5 @@
 </footer>
 
 <script src="js/main.js"></script>
-<script src="js/library.js"></script>
 </body>
 </html>

@@ -4,24 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{TITLE}} | SAFE Research Institute</title>
-  <meta name="description" content="{{ONE_SENTENCE_SUMMARY}}">
-  <link rel="canonical" href="https://saferi.org/news/{{SLUG}}">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="SAFE Research Institute">
-  <meta property="og:title" content="{{TITLE}}">
-  <meta property="og:description" content="{{ONE_SENTENCE_SUMMARY}}">
-  <meta property="og:url" content="https://saferi.org/news/{{SLUG}}">
-  <meta property="og:image" content="https://saferi.org/img/og/{{SLUG}}.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="article:published_time" content="{{DATE_ISO}}">
-  <link rel="alternate" type="application/atom+xml" title="SAFE Research Institute: publications and news" href="../feed.xml">
-  <link rel="icon" href="../img/logo-mark.svg" type="image/svg+xml">
+  <meta name="description" content="{{DESCRIPTION}}">
+{{HEAD_EXTRA}}  <link rel="icon" href="{{P}}img/logo-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="{{P}}css/style.css">
 </head>
 <body>
 
@@ -29,41 +17,20 @@
 <!-- ===== HEADER / NAV ===== -->
 <header class="site-header">
   <nav class="nav-wrapper" aria-label="Main">
-    <a href="../index.html" class="nav-logo"><img src="../img/logo.svg" alt="SAFE Research Institute" width="140" height="66"></a>
+    <a href="{{P}}index.html" class="nav-logo"><img src="{{P}}img/logo.svg" alt="SAFE Research Institute" width="140" height="66"></a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="navLinks">
-      <a href="../library.html">Evidence Library</a>
-      <a href="../education.html">Education</a>
-      <a href="../about.html">About</a>
-      <a href="../donate.html" class="nav-cta">Donate</a>
+      <a href="{{P}}library.html">Evidence Library</a>
+      <a href="{{P}}education.html">Education</a>
+      <a href="{{P}}about.html">About</a>
+      <a href="{{P}}donate.html" class="nav-cta">Donate</a>
     </div>
   </nav>
 </header>
 
-<main id="main">
-
-<div class="container breadcrumb"><a href="../library.html">Evidence Library</a></div>
-
-<section class="legal-hero">
-  <div class="container">
-    <div class="section-label">News, <time datetime="{{DATE_ISO}}">{{DATE_LONG}}</time></div>
-    <h1>{{TITLE}}</h1>
-    <p>{{ONE_SENTENCE_SUMMARY}}</p>
-  </div>
-</section>
-
-<div class="container">
-  <article class="report-body">
-    <p>{{BODY_PARAGRAPH}}</p>
-    <!-- Link the report or page this item announces: <p><a href="../reports/<slug>.html">Read the report</a></p> -->
-
-    <p class="report-note">Published by the SAFE Research Institute, the educational platform of the Science and Freedom for Everyone Foundation, for educational purposes. The Foundation does not recommend the adoption, modification, or rejection of any specific legislation, regulation, or policy proposal.</p>
-  </article>
-</div>
-
-</main>
+{{MAIN}}
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer" id="contact">
@@ -81,20 +48,20 @@
       </div>
       <div class="footer-col">
         <h4>Institute</h4>
-        <a href="../library.html">Evidence Library</a>
-        <a href="../education.html">Education</a>
-        <a href="../about.html#leadership">Leadership</a>
-        <a href="../about.html#sab">Scientific Advisory Board</a>
-        <a href="../volunteer.html">Volunteer</a>
+        <a href="{{P}}library.html">Evidence Library</a>
+        <a href="{{P}}education.html">Education</a>
+        <a href="{{P}}about.html#leadership">Leadership</a>
+        <a href="{{P}}about.html#sab">Scientific Advisory Board</a>
+        <a href="{{P}}volunteer.html">Volunteer</a>
       </div>
       <div class="footer-col">
         <h4>Support and governance</h4>
         <p>100% of donations go towards our mission.</p>
-        <a href="../donate.html">Donate</a>
-        <a href="../privacy.html">Privacy Policy</a>
-        <a href="../terms.html">Terms of Use</a>
-        <a href="../conflict-of-interest.html">Conflict of Interest</a>
-        <a href="../gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a>
+        <a href="{{P}}donate.html">Donate</a>
+        <a href="{{P}}privacy.html">Privacy Policy</a>
+        <a href="{{P}}terms.html">Terms of Use</a>
+        <a href="{{P}}conflict-of-interest.html">Conflict of Interest</a>
+        <a href="{{P}}gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a>
       </div>
     </div>
     <div class="footer-nondiscrimination">
@@ -110,6 +77,6 @@
   </div>
 </footer>
 
-<script src="../js/main.js"></script>
+<script src="{{P}}js/main.js"></script>
 </body>
 </html>
