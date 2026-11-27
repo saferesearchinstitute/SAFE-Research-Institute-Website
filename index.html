@@ -6,423 +6,227 @@
   <title>SAFE Research Institute | Evidence-Based Education for the Public</title>
   <meta name="description" content="The SAFE Research Institute is the educational platform of the Science and Freedom for Everyone Foundation, a non-partisan public charity that translates peer-reviewed research into clear, accessible information on public health and biomedical science.">
   <meta property="og:description" content="Plain-language analyses of peer-reviewed health and biomedical research, freely available to the public.">
+  <link rel="icon" href="img/logo-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-
+<a class="skip-link" href="#main">Skip to content</a>
 <!-- ===== HEADER / NAV ===== -->
 <header class="site-header">
-  <nav class="nav-wrapper">
-    <a href="index.html" class="nav-logo">
-      <div class="nav-logo-icon">S</div>
-      <div class="nav-logo-text">SAFE <span class="logo-highlight">RESEARCH</span></div>
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="policies.html">Policies</a>
-      <a href="education.html">Education</a>
-      <a href="#why">About</a>
-      <a href="donate.html" class="nav-cta">Donate</a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+  <nav class="nav-wrapper" aria-label="Main">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SAFE Research Institute" width="140" height="66"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
+    <div class="nav-links" id="navLinks">
+      <a href="research.html">Research</a>
+      <a href="education.html">Education</a>
+      <a href="policies.html">Policies</a>
+      <a href="about.html">About</a>
+      <a href="donate.html" class="nav-cta">Donate</a>
+    </div>
   </nav>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-grid"></div>
+<main id="main">
+
+<!-- ===== INTRO ===== -->
+<section class="hero home-intro">
   <div class="container">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Non-Partisan &middot; Evidence-Based &middot; Open Access
-      </div>
-      <h1>The SAFE <span class="highlight">Research Institute:</span> Evidence-Based Education for the Public</h1>
-      <p class="hero-subtitle">Promoting community health and scientific literacy by translating peer-reviewed research into clear, accessible information.</p>
-      <p class="hero-description">The Science and Freedom for Everyone Foundation is a non-partisan educational and scientific organization. Through the SAFE Research Institute, the Foundation reviews and synthesizes existing peer-reviewed research on public health and biomedical topics, then publishes plain-language reports, summaries, and white papers that are freely available to the general public.</p>
+    <div>
+      <h1>Peer-reviewed research, translated into clear, accessible information.</h1>
+      <p>The Science and Freedom for Everyone Foundation is a non-partisan educational and scientific organization. Through the SAFE Research Institute, the Foundation reviews and synthesizes existing peer-reviewed research on public health and biomedical topics, then publishes plain-language reports, summaries, and white papers that are freely available to the general public.</p>
       <div class="hero-actions">
-        <a href="#pillars" class="btn btn-primary">
-          Explore Our Research
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#why" class="btn btn-outline">
-          About the Foundation
-        </a>
+        <a href="research.html" class="btn btn-primary">Read the reports</a>
+        <a href="about.html" class="btn btn-outline">About the Foundation</a>
       </div>
     </div>
+    <svg class="cube" viewBox="50 30 420 464" role="img" aria-label="The Foundation's three activities, drawn as the three faces of the logo cube">
+      <a href="#activity-research"><polygon points="260,40 450,150 260,260 70,150" fill="#BFDADA"/><text x="260" y="145" text-anchor="middle" fill="#2A2438">Research</text><text x="260" y="171" text-anchor="middle" fill="#2A2438">reports</text></a>
+      <a href="#activity-education"><polygon points="268,274 458,164 458,374 268,484" fill="#534A6D"/><text transform="translate(363,318) skewY(-30)" text-anchor="middle" fill="#fff">Public</text><text transform="translate(363,346) skewY(-30)" text-anchor="middle" fill="#fff">education</text></a>
+      <a href="#activity-open-access"><polygon points="62,164 252,274 252,484 62,374" fill="#69698F"/><text transform="translate(157,318) skewY(30)" text-anchor="middle" fill="#fff">Open access</text><text transform="translate(157,346) skewY(30)" text-anchor="middle" fill="#fff">briefings</text></a>
+    </svg>
   </div>
 </section>
 
-<!-- ===== MISSION (brief reiteration) ===== -->
-<!-- Mission is embedded in the hero per the document's suggestion -->
+<!-- ===== RESEARCH REPORTS (rows are copied from research.html by js/reports.js) ===== -->
+<section class="section" id="reports">
+  <div class="container">
+    <div class="featured-report">
+      <div id="featuredCover"></div>
+      <div>
+        <h2>Research reports</h2>
+        <p>Plain-language analyses of peer-reviewed public health and biomedical research, reviewed by the Foundation's Scientific Advisory Board.</p>
+        <div class="table-wrap">
+          <table class="data-table reports-table stack" id="latestReports">
+            <thead><tr><th scope="col">Title</th><th scope="col">Date</th><th scope="col">Type</th><th scope="col">PDF</th></tr></thead>
+            <tbody><tr><td class="data-table-empty" colspan="4">The list of reports is on the <a href="research.html">Research page</a>.</td></tr></tbody>
+          </table>
+        </div>
+        <p style="margin-top:14px;"><a href="research.html">All reports</a></p>
+      </div>
+    </div>
+    <div class="standards">
+      <h3>Publication standards</h3>
+      <dl>
+        <dt>Review</dt><dd>All publications are reviewed by the Scientific Advisory Board prior to release.</dd>
+        <dt>License</dt><dd>Research reports, white papers, and educational materials: CC BY 4.0.</dd>
+        <dt>Access</dt><dd>Freely available to the public.</dd>
+        <dt>Independence</dt><dd><a href="gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a></dd>
+      </dl>
+    </div>
+  </div>
+</section>
 
 <!-- ===== ACTIVITIES ===== -->
 <section class="section section-alt" id="pillars">
   <div class="container">
     <div class="section-header">
-      <div class="section-label">Our Activities</div>
-      <h2>What We Do &mdash; and How to Help</h2>
+      <h2>What the Foundation does</h2>
       <p>The Foundation carries out its educational mission through three core activities. During its start-up period it runs on volunteer support, so each activity is also a way to get involved.</p>
     </div>
     <div class="pillars-grid">
-      <!-- Activity 1 -->
-      <div class="pillar-card">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4M4.22 4.22l2.83 2.83m9.9 9.9l2.83 2.83M1 12h4m14 0h4M4.22 19.78l2.83-2.83m9.9-9.9l2.83-2.83"/>
-          </svg>
-        </div>
-        <div class="pillar-focus">Activity 01</div>
+      <div class="pillar-card" id="activity-research">
         <h3>Research Analysis and Scientific Publications</h3>
         <p>The Foundation reviews and synthesizes existing peer-reviewed scientific literature on public health and biomedical topics. Findings are compiled into reports, summaries, and white papers and published on the Institute's website, freely available to the public.</p>
         <p class="pillar-need"><strong>Who we need:</strong> Scientists, MDs, and data scientists.</p>
-        <a href="volunteer.html?group=experts" class="pillar-cta">Get Involved &rarr;</a>
+        <a href="volunteer.html?group=experts" class="pillar-cta">Apply to volunteer</a>
       </div>
-      <!-- Activity 2 -->
-      <div class="pillar-card">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
-          </svg>
-        </div>
-        <div class="pillar-focus">Activity 02</div>
+      <div class="pillar-card" id="activity-education">
         <h3>Public Education and Community Outreach</h3>
         <p>The Foundation produces educational summaries, explainers, webinars, and presentations on scientific topics for non-specialist audiences. These activities are delivered online and, where requested, in person at libraries, schools, and community venues on a non-discriminatory basis.</p>
         <p class="pillar-need"><strong>Who we need:</strong> Educators, science communicators, and public health professionals.</p>
-        <a href="volunteer.html?group=outreach" class="pillar-cta">Get Involved &rarr;</a>
+        <a href="volunteer.html?group=outreach" class="pillar-cta">Apply to volunteer</a>
       </div>
-      <!-- Activity 3 -->
-      <div class="pillar-card">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
-          </svg>
-        </div>
-        <div class="pillar-focus">Activity 03</div>
+      <div class="pillar-card" id="activity-open-access">
         <h3>Open Access Educational Resources and Technical Assistance</h3>
         <p>The Foundation makes its educational materials freely available to the public and, on written request from a community organization, government body, regulator, or policymaker, prepares and delivers a research-based educational briefing on a specific scientific question. Briefings present facts, methodology, and the state of the scientific evidence. The Foundation does not recommend the adoption, modification, or rejection of any specific legislation, regulation, or policy proposal.</p>
         <p class="pillar-need"><strong>Who we need:</strong> Digital strategists, web developers, and communication specialists.</p>
-        <a href="volunteer.html?group=digital" class="pillar-cta">Get Involved &rarr;</a>
+        <a href="volunteer.html?group=digital" class="pillar-cta">Apply to volunteer</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== READY TO GET INVOLVED ===== -->
-<section class="section" id="taskforce">
+<!-- ===== VOLUNTEER ===== -->
+<section class="section" id="volunteer">
   <div class="container">
-    <div class="taskforce-apply" id="apply" style="text-align:center;">
+    <div class="taskforce-apply" id="apply">
       <h3>Ready to Get Involved?</h3>
       <p>The volunteer onboarding process includes a brief application, a commitment overview, and signing of the Foundation's Code of Integrity. Applications are reviewed within five to seven business days.</p>
-      <a href="volunteer.html" class="btn btn-primary" style="margin-top:16px;">
-        Start Your Application
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <p style="color:var(--silver);font-size:0.85rem;margin-top:16px;">Not sure where you fit? Start the application and we'll help you find the right activity.</p>
+      <p style="margin-top:16px;"><a href="volunteer.html" class="btn btn-primary">Start your application</a></p>
+      <p style="margin-top:14px;color:var(--muted);font-size:0.92rem;">Not sure where you fit? Start the application and we'll help you find the right activity.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== WHY WE EXIST ===== -->
-<section class="section" id="why">
+<!-- ===== ABOUT ===== -->
+<section class="section section-alt" id="why">
   <div class="container">
     <div class="why-grid">
       <div class="why-text">
-        <div class="section-label" style="text-align:left;justify-content:flex-start;">The Foundation</div>
         <h2>Why We Exist</h2>
         <p>The gap between scientific research and public understanding continues to widen. The Science and Freedom for Everyone Foundation was established to close that gap by making complex scientific information accessible to anyone who wants to understand it. The Foundation's core audience is the general public. Educators, journalists, students, community organizations, and public officials are welcome to use the same materials, on the same terms, free of charge.</p>
-        <div class="why-features">
-          <div class="why-feature">
-            <div class="why-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-            </div>
-            <div>
-              <h4>Evidence-Based Analysis</h4>
-              <p>Reports, summaries, and white papers synthesizing peer-reviewed research on public health and biomedical topics.</p>
-            </div>
-          </div>
-          <div class="why-feature">
-            <div class="why-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <div>
-              <h4>Public Education</h4>
-              <p>Educational summaries, webinars, and public presentations that help people interpret scientific information they encounter in everyday life.</p>
-            </div>
-          </div>
-          <div class="why-feature">
-            <div class="why-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div>
-              <h4>Briefings on Written Request</h4>
-              <p>Research-based educational briefings provided to community organizations and public officials on request.</p>
-            </div>
-          </div>
-        </div>
+        <p><a href="about.html">About the Foundation, its board, and its commitments</a></p>
       </div>
-      <div class="why-visual">
-        <div class="why-visual-card">
-          <div class="why-stat">
-            <div class="why-stat-number">3</div>
-            <div class="why-stat-label">Activities</div>
-          </div>
-          <div class="why-stat">
-            <div class="why-stat-number">50</div>
-            <div class="why-stat-label">States Served</div>
-          </div>
-          <div class="why-stat">
-            <div class="why-stat-number">100%</div>
-            <div class="why-stat-label">Non-Partisan</div>
-          </div>
-          <div class="why-stat">
-            <div class="why-stat-number">&infin;</div>
-            <div class="why-stat-label">Commitment to Evidence</div>
-          </div>
-        </div>
+      <div>
+        <h3 class="section-title">Board of Directors</h3>
+        <table class="data-table">
+          <thead><tr><th scope="col">Name</th><th scope="col">Office</th></tr></thead>
+          <tbody>
+            <tr><td>Dr. Gregory M. Newkirk</td><td data-label="Office">Founder, President and Chair</td></tr>
+            <tr><td>Kristen McCracken</td><td data-label="Office">Treasurer and Chief Financial Officer</td></tr>
+            <tr><td>Michele De Socio</td><td data-label="Office">Secretary</td></tr>
+            </tbody>
+        </table>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== LEADERSHIP / BOARD OF DIRECTORS ===== -->
-<section class="section section-alt" id="leadership">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">Leadership</div>
-      <h2>Board of Directors</h2>
-      <p>The Foundation is governed by a three-person Board of Directors. Each officer holds defined fiduciary responsibilities under California Nonprofit Public Benefit Corporation Law and the Foundation's bylaws.</p>
-    </div>
-
-    <!-- Founder / President — featured -->
-    <div class="board-featured">
-      <div class="board-photo" data-initials="GN">
-        <img src="img/gregory-newkirk.png" alt="Dr. Gregory M. Newkirk" onerror="this.remove()">
-      </div>
-      <div class="board-featured-body">
-        <h3>Dr. Gregory M. Newkirk</h3>
-        <div class="pillar-focus" style="margin-bottom:16px;">Founder &middot; President / Chair</div>
-        <p>Dr. Gregory M. Newkirk is a molecular biologist, science communicator, and the founder of Science and Freedom for Everyone (SAFE). He earned his Ph.D. studying the frontiers of molecular biology, with research spanning CRISPR/Cas9 gene editing, nanotechnology, and genomics, and his work has appeared in leading journals including <em>Nature Nanotechnology</em> and <em>ACS Nano</em>. He is also a named inventor on a granted U.S. patent for a nanoparticle-based method of delivering genetic material into plant cells. After years at the bench in both academic and industry laboratories, Dr. Newkirk turned his attention to a growing challenge of our time: the erosion of public trust in science. Drawing on his credentials as a working scientist, he now engages directly with skeptics, deniers, and the simply curious in live, open debates, meeting people where they are and modeling how evidence and honest inquiry actually work. He founded SAFE to carry that mission further, educating the public and policymakers about how science-based policy can improve quality of life and building a community dedicated to defending scientific integrity, protecting the freedom to ask questions, and ensuring that accurate, trustworthy science remains accessible to everyone.</p>
-        <p class="board-role-note">Oversees the Foundation's strategic direction, presides at meetings of the Board, and serves as the principal external representative of the Foundation.</p>
-      </div>
-    </div>
-
-    <!-- Other officers -->
-    <div class="board-others">
-      <div class="board-card">
-        <div class="board-photo board-photo--sm" data-initials="KM"></div>
-        <div class="board-card-body">
-          <h3>Kristen McCracken</h3>
-          <div class="pillar-focus">Treasurer / Chief Financial Officer</div>
-          <p>Kristen McCracken serves as Chief Financial Officer and a member of the Board of Directors of Science and Freedom for Everyone. In this role, she oversees the organization's financial management, including budgeting, financial reporting, and the development of policies that support transparency, accountability, and long-term sustainability. Kristen has a strong background in nonprofit operations and organizational leadership. She holds a certification in Nonprofit Management from Southern Methodist University, where she gained formal training in governance, financial stewardship, and strategic planning for mission-driven organizations. As CFO, Kristen works closely with fellow board members to ensure responsible financial oversight and alignment between the organization's resources and its mission. Her approach emphasizes sound fiscal practices, ethical governance, and building a stable foundation for growth and impact. In addition to her role with Science and Freedom for Everyone, Kristen also serves as a director of another nonprofit organization, where she contributes to organizational governance, strategic planning, and mission-focused leadership. She is committed to strengthening nonprofit organizations through sound financial stewardship and effective governance.</p>
-          <p class="board-role-note">Oversees the Foundation's financial condition, maintains books and records of account, prepares the annual budget, and oversees timely federal and state tax filings.</p>
-        </div>
-      </div>
-      <div class="board-card">
-        <div class="board-photo board-photo--sm" data-initials="MD"></div>
-        <div class="board-card-body">
-          <h3>Michele De Socio</h3>
-          <div class="pillar-focus">Secretary</div>
-          <p>Michele De Socio has over 20 years of experience in nonprofit financial leadership, having served as Chief Financial Officer of a private nonprofit social service agency and federally qualified health center, where she was responsible for financial oversight and regulatory compliance.</p>
-          <p>Now retired, she serves as Secretary of the Board of the Science and Freedom for Everyone Foundation (SAFE), contributing expertise in governance and organizational oversight to support the Foundation's mission of advancing public education and promoting scientific integrity. She has also served on the boards of other nonprofit organizations and volunteers her time assisting emerging nonprofit organizations with startup guidance, compliance, and regulatory requirements.</p>
-          <p class="board-role-note">Maintains the Foundation's corporate records, records minutes of Board meetings, and oversees the Foundation's compliance calendar and conflict-of-interest disclosures.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scientific Advisory Board -->
-    <div class="commitment-card" id="sab" style="margin-top:48px;">
-      <div class="section-label">Standards &amp; Integrity</div>
-      <h2>Scientific Advisory Board</h2>
-      <p>The Scientific Advisory Board is a standing advisory body of volunteer experts in microbiology, clinical medicine, data science, public health, and related fields. It exercises no governance authority. Its role is to review draft publications for methodological soundness, flag and manage author or reviewer conflicts of interest, and recommend publication standards to the Board. Members serve uncompensated. Recruitment is ongoing, and members will be announced here as they are confirmed.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== OUR COMMITMENT ===== -->
-<section class="section">
-  <div class="container">
-    <div class="commitment-card">
-      <div class="section-label">Nonprofit Educational &amp; Scientific Organization, 501(c)(3) Public Charity</div>
-      <h2>Our Commitment</h2>
-      <p>The Science and Freedom for Everyone Foundation operates as a non-partisan educational and scientific organization. The Foundation does not support, oppose, endorse, or contribute to any candidate for public office and does not engage in any form of electioneering.</p>
-      <p>The Foundation has elected the expenditure test under Section 501(h) of the Internal Revenue Code for any educational work that touches on legislative subjects. Substantially all Foundation work is nonpartisan educational analysis or technical assistance provided in response to written requests. The Foundation does not advocate for the adoption, modification, or rejection of any specific legislation, regulation, or policy proposal.</p>
-      <p>All Foundation work products are released to the public free of charge under open licenses, with the license chosen to fit each type of material: model policy documents are dedicated to the public domain under Creative Commons CC0 1.0; and research reports, white papers, and educational materials are licensed under Creative Commons Attribution 4.0 (CC BY 4.0). The Foundation's names and logos are not covered by these licenses and remain reserved.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== NEWSLETTER ===== -->
-<section class="newsletter-section" id="newsletter">
-  <div class="container">
-    <div class="newsletter-inner">
-      <div class="newsletter-text">
-        <h2>Just What You Need</h2>
-        <p>Get our Research Briefing Series delivered to your inbox with timely analysis of clinical and regulatory trends.</p>
-      </div>
-      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing! You will receive our Research Briefing Series.');">
-        <input type="email" placeholder="Enter your email address" required aria-label="Email address">
-        <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FEATURED CONTENT BLOCKS ===== -->
+<!-- ===== ALSO FROM THE INSTITUTE ===== -->
 <section class="section" id="news">
   <div class="container">
     <div class="section-header">
-      <div class="section-label">From the Institute</div>
       <h2>Research &amp; Resources</h2>
       <p>Access research publications, educational materials, and resources from the Foundation's three activities.</p>
     </div>
     <div class="content-grid">
-      <!-- Research Reports -->
-      <a href="blog.html" class="content-card" style="text-decoration:none;color:inherit;">
-        <div class="content-card-img">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        </div>
-        <div class="content-card-body">
-          <div class="content-card-tag">Research Reports</div>
-          <h3>Research Publications &amp; Analysis</h3>
-          <p>Systematic review and synthesis of peer-reviewed public health and biomedical research, reviewed and approved by the Scientific Advisory Board.</p>
-        </div>
+      <a href="blog.html" class="content-card">
+        <div class="content-card-tag">Research Reports</div>
+        <h3>Research Publications &amp; Analysis</h3>
+        <p>Systematic review and synthesis of peer-reviewed public health and biomedical research, reviewed and approved by the Scientific Advisory Board.</p>
       </a>
-      <!-- Videos -->
-      <a href="videos.html" class="content-card" style="text-decoration:none;color:inherit;">
-        <div class="content-card-img">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-        </div>
-        <div class="content-card-body">
-          <div class="content-card-tag">Educational Media</div>
-          <h3>Science Communication Resources</h3>
-          <p>Educational webinars, presentations, and recorded seminars from the SAFE Research Institute community.</p>
-        </div>
+      <a href="videos.html" class="content-card">
+        <div class="content-card-tag">Educational Media</div>
+        <h3>Science Communication Resources</h3>
+        <p>Educational webinars, presentations, and recorded seminars from the SAFE Research Institute community.</p>
       </a>
-      <!-- Educational Briefings -->
-      <a href="policies.html" class="content-card" style="text-decoration:none;color:inherit;">
-        <div class="content-card-img">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </div>
-        <div class="content-card-body">
-          <div class="content-card-tag">White Papers &amp; Summaries</div>
-          <h3>Research-Based Educational Materials</h3>
-          <p>Reports, summaries, and white papers translating peer-reviewed research into clear, accessible information for the public.</p>
-        </div>
+      <a href="policies.html" class="content-card">
+        <div class="content-card-tag">White Papers &amp; Summaries</div>
+        <h3>Research-Based Educational Materials</h3>
+        <p>Reports, summaries, and white papers translating peer-reviewed research into clear, accessible information for the public.</p>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===== COMING SOON: RESEARCH ARTICLES ===== -->
-<section class="section section-alt" id="articles-coming-soon">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">Coming Soon</div>
-      <h2>Research Publications</h2>
-      <p>Plain-language analyses of peer-reviewed public health and biomedical research, reviewed by the Foundation's Scientific Advisory Board.</p>
-    </div>
-    <div style="text-align:center;padding:60px 24px;background:var(--white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,0.06);">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;color:var(--silver);margin:0 auto 20px;display:block;">
-        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
-      </svg>
-      <h3 style="font-size:1.2rem;margin-bottom:8px;">Publications Coming Soon</h3>
-      <p style="color:var(--steel);font-size:0.92rem;max-width:480px;margin:0 auto;">The Foundation's research publication platform is currently under development. Check back soon for research reports, white papers, and educational briefs.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== COMING SOON: VIDEO LIBRARY ===== -->
-<section class="section" id="videos-coming-soon">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">Coming Soon</div>
-      <h2>Educational Media Library</h2>
-      <p>Educational webinars, public presentations, and recorded seminars from the SAFE Research Institute.</p>
-    </div>
-    <div style="text-align:center;padding:60px 24px;background:var(--off-white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,0.06);">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;color:var(--silver);margin:0 auto 20px;display:block;">
-        <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-      </svg>
-      <h3 style="font-size:1.2rem;margin-bottom:8px;">Educational Media Coming Soon</h3>
-      <p style="color:var(--steel);font-size:0.92rem;max-width:480px;margin:0 auto;">The Foundation's educational media platform is currently under development. Check back soon for webinars, presentations, and recorded seminars.</p>
-    </div>
-  </div>
-</section>
+</main>
 
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer" id="contact">
   <div class="container">
     <div class="footer-top">
-      <!-- About -->
       <div class="footer-about">
         <h3>About the Foundation</h3>
         <p>During its initial years, the Foundation operates primarily through volunteer support. Activities are conducted virtually using secure digital collaboration tools. All publications are reviewed by the Scientific Advisory Board prior to release.</p>
-        <p style="margin-top:8px;">The Foundation is affiliated with the Science and Freedom for Everyone Action Fund ("SAFE Action"), a separate legal entity organized under Section 501(c)(4) of the Internal Revenue Code. The two entities maintain separate governance, separate bank accounts, and separate financial records. The Foundation does not engage in political campaign activity and does not use its funds to support the political or legislative activities of SAFE Action. Any administrative costs shared between the two entities are allocated based on documented relative use and reimbursed at fair market value.</p>
-        <p style="margin-top:8px;">The Science and Freedom for Everyone Foundation is a California nonprofit public benefit corporation. The Internal Revenue Service has recognized the Foundation as exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code and classified it as a public charity under Section 170(b)(1)(A)(vi).</p>
+        <p>The Foundation is affiliated with the Science and Freedom for Everyone Action Fund ("SAFE Action"), a separate legal entity organized under Section 501(c)(4) of the Internal Revenue Code. The two entities maintain separate governance, separate bank accounts, and separate financial records. The Foundation does not engage in political campaign activity and does not use its funds to support the political or legislative activities of SAFE Action. Any administrative costs shared between the two entities are allocated based on documented relative use and reimbursed at fair market value.</p>
         <address class="footer-address">
           <strong>Science and Freedom for Everyone Foundation</strong><br>
           1119 S Mission Rd, Box 316<br>
           Fallbrook, CA 92028-3225
         </address>
-        <div class="footer-social">
-        </div>
       </div>
-
-      <!-- Support -->
-      <div class="footer-col">
-        <h4>Support Us</h4>
-        <p style="font-size:0.85rem;line-height:1.7;margin-bottom:12px;">100% of donations go towards our mission.</p>
-        <a href="donate.html">Donate</a>
-        <a href="#">State Disclosures</a>
-        <a href="#">Donor Privacy Policy</a>
-      </div>
-
-      <!-- Pages -->
       <div class="footer-col">
         <h4>Institute</h4>
-        <a href="index.html#leadership">Leadership</a>
-        <a href="index.html#sab">Scientific Advisory Board</a>
-        <a href="#">Research Hub</a>
-        <a href="#">Science News Hub</a>
-        <a href="#">990 Disclosures</a>
+        <a href="research.html">Research reports</a>
+        <a href="blog.html">Research articles</a>
+        <a href="education.html">Education</a>
+        <a href="policies.html">Evidence Resource Library</a>
+        <a href="seminars.html">Seminars</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html#leadership">Leadership</a>
+        <a href="about.html#sab">Scientific Advisory Board</a>
+        <a href="volunteer.html">Volunteer</a>
       </div>
-
-      <!-- Legal/Contact -->
       <div class="footer-col">
-        <h4>Connect</h4>
-        <a href="#">Contact Us</a>
-
-      </div>
-    </div>
-
-    <!-- Non-Discrimination -->
-    <div class="footer-nondiscrimination">
-      The Foundation makes all educational resources available to the public on a non-discriminatory basis, without regard to race, color, national origin, religion, sex, age, disability, sexual orientation, gender identity, political affiliation, or any other protected characteristic.
-    </div>
-
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-      <div class="footer-legal-links">
+        <h4>Support and governance</h4>
+        <p>100% of donations go towards our mission.</p>
+        <a href="donate.html">Donate</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms of Use</a>
         <a href="conflict-of-interest.html">Conflict of Interest</a>
         <a href="gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a>
       </div>
+    </div>
+    <div class="footer-nondiscrimination">
+      The Foundation makes all educational resources available to the public on a non-discriminatory basis, without regard to race, color, national origin, religion, sex, age, disability, sexual orientation, gender identity, political affiliation, or any other protected characteristic.
+    </div>
+    <div class="footer-bottom">
       <div class="footer-tax">
-        &copy; 2026 Science and Freedom for Everyone Foundation. Materials are released under open licenses (CC0 1.0 and CC BY 4.0); the Foundation's names and logos are reserved.<br>
-        The Science and Freedom for Everyone Foundation is a California nonprofit public benefit corporation. The Internal Revenue Service has recognized the Foundation as exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code and classified it as a public charity under Section 170(b)(1)(A)(vi). Contributions to the Foundation are tax-deductible to the extent allowed by law.<br>
-        Tax ID (EIN): 41-2910356
+        <p>&copy; 2026 Science and Freedom for Everyone Foundation. Materials are released under open licenses (CC0 1.0 and CC BY 4.0); the Foundation's names and logos are reserved.</p>
+        <p>The Science and Freedom for Everyone Foundation is a California nonprofit public benefit corporation. The Internal Revenue Service has recognized the Foundation as exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code and classified it as a public charity under Section 170(b)(1)(A)(vi). Contributions to the Foundation are tax-deductible to the extent allowed by law.</p>
+        <p>Tax ID (EIN): 41-2910356</p>
       </div>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/reports.js"></script>
 </body>
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} | SAFE Research Institute</title>
+  <meta name="description" content="{{ONE_SENTENCE_SUMMARY}}">
+  <link rel="icon" href="../img/logo-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<!-- ===== HEADER / NAV ===== -->
+<header class="site-header">
+  <nav class="nav-wrapper" aria-label="Main">
+    <a href="../index.html" class="nav-logo"><img src="../img/logo.svg" alt="SAFE Research Institute" width="140" height="66"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../research.html">Research</a>
+      <a href="../education.html">Education</a>
+      <a href="../policies.html">Policies</a>
+      <a href="../about.html">About</a>
+      <a href="../donate.html" class="nav-cta">Donate</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<div class="container breadcrumb"><a href="../research.html">Research reports</a></div>
+
+<section class="report-head">
+  <div class="container">
+    <div class="report-cover">
+      <img class="report-cover-mark" src="../img/logo-mark.svg" alt="" width="68" height="68">
+      <div>
+        <div class="report-cover-type">{{TYPE}}</div>
+        <div class="report-cover-title">{{TITLE}}</div>
+      </div>
+      <div class="report-cover-foot">SAFE Research Institute<br>{{DATE_LONG}}</div>
+    </div>
+    <div>
+      <h1>{{TITLE}}</h1>
+      <p class="report-summary">{{ONE_SENTENCE_SUMMARY}}</p>
+      <dl class="report-meta">
+        <dt>Published</dt><dd><time datetime="{{DATE_ISO}}">{{DATE_LONG}}</time></dd>
+        <dt>Type</dt><dd>{{TYPE}}</dd>
+        <dt>Authors</dt><dd>{{AUTHORS}}</dd>
+        <dt>License</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a></dd>
+      </dl>
+      <a class="btn btn-primary" href="pdf/{{SLUG}}.pdf">Download the PDF</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <article class="report-body">
+    <h2>Summary</h2>
+    <p>{{SUMMARY_PARAGRAPH}}</p>
+
+    <h2>Findings</h2>
+    <p>{{FINDINGS}}</p>
+    <!-- Tables inside a report: <div class="table-wrap"><table class="data-table"> ... </table></div> -->
+    <!-- Figures: <figure><img src="img/<slug>-fig1.png" alt="..."><figcaption>...</figcaption></figure> -->
+
+    <h2>Methods and sources</h2>
+    <p>{{METHODS}}</p>
+
+    <h2>References</h2>
+    <ol>
+      <li>{{REFERENCE}}</li>
+    </ol>
+
+    <p class="report-note">This report is published by the SAFE Research Institute, the educational platform of the Science and Freedom for Everyone Foundation, for educational purposes. It presents facts, methodology, and the state of the scientific evidence. The Foundation does not recommend the adoption, modification, or rejection of any specific legislation, regulation, or policy proposal. All publications are reviewed by the Scientific Advisory Board prior to release.</p>
+  </article>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-about">
+        <h3>About the Foundation</h3>
+        <p>During its initial years, the Foundation operates primarily through volunteer support. Activities are conducted virtually using secure digital collaboration tools. All publications are reviewed by the Scientific Advisory Board prior to release.</p>
+        <p>The Foundation is affiliated with the Science and Freedom for Everyone Action Fund ("SAFE Action"), a separate legal entity organized under Section 501(c)(4) of the Internal Revenue Code. The two entities maintain separate governance, separate bank accounts, and separate financial records. The Foundation does not engage in political campaign activity and does not use its funds to support the political or legislative activities of SAFE Action. Any administrative costs shared between the two entities are allocated based on documented relative use and reimbursed at fair market value.</p>
+        <address class="footer-address">
+          <strong>Science and Freedom for Everyone Foundation</strong><br>
+          1119 S Mission Rd, Box 316<br>
+          Fallbrook, CA 92028-3225
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <a href="../research.html">Research reports</a>
+        <a href="../blog.html">Research articles</a>
+        <a href="../education.html">Education</a>
+        <a href="../policies.html">Evidence Resource Library</a>
+        <a href="../seminars.html">Seminars</a>
+        <a href="../videos.html">Videos</a>
+        <a href="../about.html#leadership">Leadership</a>
+        <a href="../about.html#sab">Scientific Advisory Board</a>
+        <a href="../volunteer.html">Volunteer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support and governance</h4>
+        <p>100% of donations go towards our mission.</p>
+        <a href="../donate.html">Donate</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../conflict-of-interest.html">Conflict of Interest</a>
+        <a href="../gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a>
+      </div>
+    </div>
+    <div class="footer-nondiscrimination">
+      The Foundation makes all educational resources available to the public on a non-discriminatory basis, without regard to race, color, national origin, religion, sex, age, disability, sexual orientation, gender identity, political affiliation, or any other protected characteristic.
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-tax">
+        <p>&copy; 2026 Science and Freedom for Everyone Foundation. Materials are released under open licenses (CC0 1.0 and CC BY 4.0); the Foundation's names and logos are reserved.</p>
+        <p>The Science and Freedom for Everyone Foundation is a California nonprofit public benefit corporation. The Internal Revenue Service has recognized the Foundation as exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code and classified it as a public charity under Section 170(b)(1)(A)(vi). Contributions to the Foundation are tax-deductible to the extent allowed by law.</p>
+        <p>Tax ID (EIN): 41-2910356</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
