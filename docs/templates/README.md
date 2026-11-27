@@ -74,7 +74,8 @@ The page is complete without JavaScript: every figure has its static image, its 
   "lookup": { "afterFigure": 2, "title": "Find your state", "data": "path/states.csv", "key": "state",
               "fields": [ { "field": "change_pct", "label": "Change, 2019 to 2025", "unit": "percent" } ] },
   "places": { "path": "topic-name", "data": "assets/<id>/states.csv", "key": "state", "names": "us-states",
-              "title": "{name}: ...", "description": "... {name} ... {change_pct} ...",
+              "title": "{name}: business electricity sales and residential prices, 2019 to 2025",
+              "description": "... {name} ... {change_pct} ...",
               "intro": "First paragraph with the number and its source, using {name} and {column} tokens.",
               "note": "The caution that applies to every place.", "indexTitle": "...", "indexIntro": "...",
               "fields": [ { "field": "change_pct", "label": "Change (%)" } ] }
@@ -86,6 +87,7 @@ The page is complete without JavaScript: every figure has its static image, its 
 - A map uses two-letter state codes in the `key` column. Choosing a state in the lookup, or clicking it on the map, highlights it on every chart that names the same `key`.
 - `lookup` prints the whole table in the page and adds a chooser. There is no county lookup until a report has county data.
 - `places` writes one page per row at `topics/<path>/<place>.html` plus an index page listing them all. Every sentence pattern is yours.
+- Place-page titles name what the data is, in the form "{name}: business electricity sales and residential prices, 2019 to 2025" (Greg, 2026-11-27). A title such as "Data centers in Ohio" is not used over data that does not count data centers.
 - Question pages: put `publications/questions/<id>.md` with frontmatter `id`, `question`, `description`, `report` (the report's id), `status: "published"`, optional `related: ["other-id|Link text"]`. The first paragraph is the answer and should carry the number and its source. To preview questions for a draft, put them in `<draft file name>.questions/`.
 
 Libraries, loaded only on pages that have a sidecar: D3 7.9.0, Observable Plot 0.6.17, topojson-client 3.1.0 and the us-atlas 3.0.1 state shapes, from jsDelivr with integrity hashes (see `LIBS` in `build_site.py`).
