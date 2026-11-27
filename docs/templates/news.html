@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} | SAFE Research Institute</title>
+  <meta name="description" content="{{ONE_SENTENCE_SUMMARY}}">
+  <link rel="canonical" href="https://saferi.org/news/{{SLUG}}">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="SAFE Research Institute">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{ONE_SENTENCE_SUMMARY}}">
+  <meta property="og:url" content="https://saferi.org/news/{{SLUG}}">
+  <meta property="og:image" content="https://saferi.org/img/og/{{SLUG}}.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="article:published_time" content="{{DATE_ISO}}">
+  <link rel="alternate" type="application/atom+xml" title="SAFE Research Institute: publications and news" href="../feed.xml">
+  <link rel="icon" href="../img/logo-mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<!-- ===== HEADER / NAV ===== -->
+<header class="site-header">
+  <nav class="nav-wrapper" aria-label="Main">
+    <a href="../index.html" class="nav-logo"><img src="../img/logo.svg" alt="SAFE Research Institute" width="140" height="66"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="../research.html">Research</a>
+      <a href="../education.html">Education</a>
+      <a href="../policies.html">Policies</a>
+      <a href="../about.html">About</a>
+      <a href="../donate.html" class="nav-cta">Donate</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<div class="container breadcrumb"><a href="../research.html">Research</a></div>
+
+<section class="legal-hero">
+  <div class="container">
+    <div class="section-label">News, <time datetime="{{DATE_ISO}}">{{DATE_LONG}}</time></div>
+    <h1>{{TITLE}}</h1>
+    <p>{{ONE_SENTENCE_SUMMARY}}</p>
+  </div>
+</section>
+
+<div class="container">
+  <article class="report-body">
+    <p>{{BODY_PARAGRAPH}}</p>
+    <!-- Link the report or page this item announces: <p><a href="../reports/<slug>.html">Read the report</a></p> -->
+
+    <p class="report-note">Published by the SAFE Research Institute, the educational platform of the Science and Freedom for Everyone Foundation, for educational purposes. The Foundation does not recommend the adoption, modification, or rejection of any specific legislation, regulation, or policy proposal.</p>
+  </article>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-about">
+        <h3>About the Foundation</h3>
+        <p>During its initial years, the Foundation operates primarily through volunteer support. Activities are conducted virtually using secure digital collaboration tools. All publications are reviewed by the Scientific Advisory Board prior to release.</p>
+        <p>The Foundation is affiliated with the Science and Freedom for Everyone Action Fund ("SAFE Action"), a separate legal entity organized under Section 501(c)(4) of the Internal Revenue Code. The two entities maintain separate governance, separate bank accounts, and separate financial records. The Foundation does not engage in political campaign activity and does not use its funds to support the political or legislative activities of SAFE Action. Any administrative costs shared between the two entities are allocated based on documented relative use and reimbursed at fair market value.</p>
+        <address class="footer-address">
+          <strong>Science and Freedom for Everyone Foundation</strong><br>
+          1119 S Mission Rd, Box 316<br>
+          Fallbrook, CA 92028-3225
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Institute</h4>
+        <a href="../research.html">Research reports</a>
+        <a href="../blog.html">Research articles</a>
+        <a href="../education.html">Education</a>
+        <a href="../policies.html">Evidence Resource Library</a>
+        <a href="../seminars.html">Seminars</a>
+        <a href="../videos.html">Videos</a>
+        <a href="../about.html#leadership">Leadership</a>
+        <a href="../about.html#sab">Scientific Advisory Board</a>
+        <a href="../volunteer.html">Volunteer</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support and governance</h4>
+        <p>100% of donations go towards our mission.</p>
+        <a href="../donate.html">Donate</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../conflict-of-interest.html">Conflict of Interest</a>
+        <a href="../gift-acceptance.html">Gift Acceptance &amp; Independence Policy</a>
+      </div>
+    </div>
+    <div class="footer-nondiscrimination">
+      The Foundation makes all educational resources available to the public on a non-discriminatory basis, without regard to race, color, national origin, religion, sex, age, disability, sexual orientation, gender identity, political affiliation, or any other protected characteristic.
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-tax">
+        <p>&copy; 2026 Science and Freedom for Everyone Foundation. Materials are released under open licenses (CC0 1.0 and CC BY 4.0); the Foundation's names and logos are reserved.</p>
+        <p>The Science and Freedom for Everyone Foundation is a California nonprofit public benefit corporation. The Internal Revenue Service has recognized the Foundation as exempt from federal income tax under Section 501(c)(3) of the Internal Revenue Code and classified it as a public charity under Section 170(b)(1)(A)(vi). Contributions to the Foundation are tax-deductible to the extent allowed by law.</p>
+        <p>Tax ID (EIN): 41-2910356</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

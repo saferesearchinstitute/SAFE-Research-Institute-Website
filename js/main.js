@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mark the current page in the navigation ---
     // The header markup is identical on every page; this sets aria-current.
     const here = (location.pathname.split('/').pop() || 'index').replace(/\.html$/, '') || 'index';
-    const inReports = /\/reports\//.test(location.pathname);
+    const inReports = /\/(reports|news)\//.test(location.pathname);
     const section = {
       research: 'research', blog: 'research',
       education: 'education', seminars: 'education', videos: 'education',

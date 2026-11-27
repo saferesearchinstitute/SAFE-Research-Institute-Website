@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Share image card</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Rendered at 1200 x 630 by make_og.py. Not a site page. */
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1200px; height: 630px; font-family: 'IBM Plex Sans', sans-serif; background: #fff; display: grid; grid-template-columns: 420px 1fr; }
+  .cover { background: #534A6D; color: #fff; padding: 56px 48px; display: flex; flex-direction: column; justify-content: space-between; }
+  .mark { width: 132px; height: 132px; background: #fff; border-radius: 50%; padding: 24px; }
+  .type { font-size: 30px; color: #BFDADA; }
+  .inst { font-size: 26px; border-top: 2px solid rgba(255,255,255,.4); padding-top: 20px; line-height: 1.35; }
+  .main { padding: 56px 64px 0; display: flex; flex-direction: column; justify-content: space-between; border-left: 14px solid #BFDADA; }
+  h1 { font-size: 62px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; color: #2A2438; }
+  h1.long { font-size: 48px; }
+  .logo { height: 120px; align-self: flex-start; margin-bottom: 44px; }
+  .band { height: 14px; margin: 0 -64px; background: linear-gradient(90deg, #534A6D 0 40%, #69698F 40% 70%, #93B7BD 70% 90%, #BFDADA 90%); }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <img class="mark" src="../../img/logo-mark.svg" alt="">
+    <div class="type" id="type"></div>
+    <div class="inst">SAFE Research Institute<br><span id="date"></span></div>
+  </div>
+  <div class="main">
+    <h1 id="title"></h1>
+    <div><img class="logo" src="../../img/logo.svg" alt=""><div class="band"></div></div>
+  </div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const t = q.get('title') || 'Peer-reviewed research, translated into clear, accessible information.';
+  document.getElementById('title').textContent = t;
+  if (t.length > 70) document.getElementById('title').classList.add('long');
+  document.getElementById('type').textContent = q.get('type') || '';
+  document.getElementById('date').textContent = q.get('date') || 'saferi.org';
+</script>
+</body>
+</html>

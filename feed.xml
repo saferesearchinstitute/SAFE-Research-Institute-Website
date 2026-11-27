@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>SAFE Research Institute: publications and news</title>
+  <subtitle>Reports and announcements from the SAFE Research Institute, the educational platform of the Science and Freedom for Everyone Foundation.</subtitle>
+  <link href="https://saferi.org/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://saferi.org/research" rel="alternate" type="text/html"/>
+  <id>https://saferi.org/</id>
+  <updated>2026-11-27T00:00:00Z</updated>
+  <author><name>SAFE Research Institute</name></author>
+</feed>

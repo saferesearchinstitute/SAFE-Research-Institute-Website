@@ -1,12 +1,34 @@
 /* ============================================
    SAFE Research Institute - Research reports
-   The reports table in research.html is the single list of reports.
-   This script (1) draws the cover for the first row and
-   (2) on the home page, copies the newest rows from research.html.
+   The table in research.html is the single list of reports and news.
+   This script (1) draws the cover for the newest report,
+   (2) on the home page, copies the newest rows from research.html into
+   the "Latest" section, and (3) on research.html, offers a Reports / News
+   filter once the list holds both kinds.
    ============================================ */
 
 (function () {
   const HOME_ROWS = 5;
+
+  function isNews(row) {
+    const cells = row.querySelectorAll('td');
+    return cells.length > 2 && cells[2].textContent.trim().toLowerCase() === 'news';
+  }
+
+  function setUpFilter(rows) {
+    const bar = document.getElementById('listFilter');
+    if (!bar) return;
+    const kinds = new Set(rows.map(r => (isNews(r) ? 'news' : 'report')));
+    if (kinds.size < 2) return;
+    bar.hidden = false;
+    bar.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        bar.querySelectorAll('button').forEach(b => b.classList.toggle('active', b === btn));
+        const show = btn.dataset.show;
+        rows.forEach(r => { r.hidden = show !== 'all' && (isNews(r) ? 'news' : 'report') !== show; });
+      });
+    });
+  }
 
   function buildCover(row, slot) {
     if (!row || !slot || row.querySelector('.data-table-empty')) return;
@@ -47,7 +69,9 @@
     const latest = document.getElementById('latestReports');
 
     if (full) {
-      buildCover(full.querySelector('tbody tr'), slot);
+      const rows = Array.from(full.querySelectorAll('tbody tr'));
+      buildCover(rows.find(r => !isNews(r)), slot);
+      setUpFilter(rows);
       return;
     }
     if (!latest) return;
@@ -60,7 +84,10 @@
         if (!rows.length) return;
         const body = latest.querySelector('tbody');
         body.replaceChildren(...rows.map(r => document.importNode(r, true)));
-        buildCover(body.querySelector('tr'), slot);
+        // the cover shows the newest report, even when a news item is newer
+        const all = Array.from(doc.querySelectorAll('#reportsTable tbody tr'));
+        const newest = all.find(r => !isNews(r));
+        buildCover(newest ? document.importNode(newest, true) : null, slot);
       })
       .catch(() => { /* the static row linking to the Research page stays in place */ });
   });

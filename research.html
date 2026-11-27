@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research Reports | SAFE Research Institute</title>
   <meta name="description" content="Research reports from the SAFE Research Institute: plain-language analyses of peer-reviewed public health and biomedical research, reviewed by the Foundation's Scientific Advisory Board and free to the public.">
+  <link rel="canonical" href="https://saferi.org/research">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SAFE Research Institute">
+  <meta property="og:title" content="Research Reports | SAFE Research Institute">
+  <meta property="og:description" content="Research reports from the SAFE Research Institute: plain-language analyses of peer-reviewed public health and biomedical research, reviewed by the Foundation's Scientific Advisory Board and free to the public.">
+  <meta property="og:url" content="https://saferi.org/research">
+  <meta property="og:image" content="https://saferi.org/img/og/default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" type="application/atom+xml" title="SAFE Research Institute: publications and news" href="feed.xml">
   <link rel="icon" href="img/logo-mark.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +46,7 @@
 
 <section class="legal-hero">
   <div class="container">
-    <h1>Research reports</h1>
+    <h1>Research</h1>
     <p>Plain-language analyses of peer-reviewed public health and biomedical research, reviewed by the Foundation's Scientific Advisory Board.</p>
   </div>
 </section>
@@ -45,15 +56,20 @@
     <div class="featured-report">
       <div id="featuredCover"></div>
       <div>
-        <h2>All reports</h2>
+        <h2>Publications and news</h2>
         <p>Newest first. Each report has its own page and a PDF.</p>
+        <div class="list-filter" id="listFilter" hidden>
+          <button type="button" class="active" data-show="all">All</button>
+          <button type="button" data-show="report">Reports</button>
+          <button type="button" data-show="news">News</button>
+        </div>
         <div class="table-wrap">
           <!--
-            ADDING A REPORT
-            1. Copy docs/templates/report.html to reports/<slug>.html and fill it in.
-            2. Put the PDF at reports/pdf/<slug>.pdf.
-            3. Add one <tr> at the TOP of this tbody, in this shape:
+            THE ONE LIST. Reports and news items both go here, newest first.
+            The home page "Latest" section, the cover block and feed.xml are all
+            made from this table. Steps: docs/templates/README.md
 
+            A report:
             <tr>
               <td><a href="reports/<slug>.html">Report title</a></td>
               <td data-label="Date"><time datetime="2026-12-15">December 15, 2026</time></td>
@@ -61,8 +77,13 @@
               <td data-label="PDF"><a href="reports/pdf/<slug>.pdf">PDF</a></td>
             </tr>
 
-            The first row is also shown as the cover on this page and on the home page.
-            The home page copies its rows from this table, so nothing else needs editing.
+            A news item (Type must be exactly "News"; no PDF):
+            <tr>
+              <td><a href="news/<slug>.html">Headline</a></td>
+              <td data-label="Date"><time datetime="2026-12-15">December 15, 2026</time></td>
+              <td data-label="Type">News</td>
+              <td></td>
+            </tr>
           -->
           <table class="data-table reports-table stack" id="reportsTable">
             <thead><tr><th scope="col">Title</th><th scope="col">Date</th><th scope="col">Type</th><th scope="col">PDF</th></tr></thead>
@@ -76,6 +97,7 @@
             </tbody>
           </table>
         </div>
+        <p class="feed-link"><a href="feed.xml">Atom feed</a> of publications and news</p>
       </div>
     </div>
     <div class="standards">
