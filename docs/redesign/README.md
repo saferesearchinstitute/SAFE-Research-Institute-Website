@@ -3,9 +3,14 @@
 Not deployed (`docs/` is in `.vercelignore`).
 
 - `directions/`: three working homepage directions (A register, B working paper, C three faces). Open through the local preview at `/docs/redesign/directions/<name>/index.html`.
+- `screenshots/after/`: every redesigned page at both widths, plus the report template.
 - `screenshots/before/`: every current page at 1440 and 390 px wide.
 - `screenshots/directions/`: the three directions at both widths.
 - `shoot.py`: full-page screenshot script (scrolls first, reports console errors and horizontal overflow).
+
+## Direction chosen (2026-11-27)
+
+A (the register) as the base, with B's report cover and C's cube with three faces (research reports, open access briefings, public education). Logo: the purple and teal cube.
 
 ## Logo colors (from the vector logo files)
 

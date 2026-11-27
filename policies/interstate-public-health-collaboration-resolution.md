@@ -27,7 +27,7 @@ status: "published"
 
 **WHEREAS,** states have collaborated on matters of public health through mechanisms such as interstate compacts, mutual aid agreements, and regional health partnerships; and
 
-**WHEREAS,** more recent regional public health alliances — such as the West Coast Health Alliance, formed in 2025 among California, Oregon, Washington, and Hawaii — reflect growing interest in multi-state coordination on evidence-based immunization guidance, the sharing of epidemiological surveillance data, and public health laboratory capacity; and
+**WHEREAS,** more recent regional public health alliances, such as the West Coast Health Alliance, formed in 2025 among California, Oregon, Washington, and Hawaii, reflect growing interest in multi-state coordination on evidence-based immunization guidance, the sharing of epidemiological surveillance data, and public health laboratory capacity; and
 
 **WHEREAS,** disruptions to federal public health advisory processes, reductions in federal epidemiological capacity, or delays in federal immunization guidance may create gaps in public health protection that states must be prepared to address collectively; and
 
