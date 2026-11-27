@@ -50,6 +50,58 @@ python3 docs/templates/build_site.py --check
 
 fails if anything generated is out of date. Run it before committing.
 
+## Interactive figures, the state lookup, question pages and place pages
+
+The page is complete without JavaScript: every figure has its static image, its caption and its numbers in an HTML table. `js/figures.js` reads that same table, draws the chart, and only then hides the image. The words and numbers always come from the report's files; the build supplies none.
+
+**Give a figure its data.** Name the CSV in the caption, in backticks. `Data: \`path/file.csv\`.` is dropped from the caption; any other backticked `.csv` path becomes a link. The build copies figures and CSVs next to the page under `library/assets/<id>/`, prints the table (collapsed), and adds "data (CSV)" and "image (PNG)" downloads.
+
+**Make it interactive.** Put a sidecar file beside the markdown, `<file>.charts.json`. Nothing in it reaches the PDF, the markdown copy, the search index or `llms.txt`.
+
+```
+{
+  "figures": {
+    "1": { "type": "line", "x": "year", "y": "value", "low": "range_low", "high": "range_high",
+           "alt": "One sentence describing the chart for screen readers.",
+           "labels": { "value": "Axis label" },
+           "steps": [ { "text": "A sentence from the report.", "highlight": 2024, "highlightField": "year" } ] },
+    "2": { "type": "map", "key": "state", "value": "change_pct", "diverging": true },
+    "3": { "type": "bar", "x": "name", "y": "value", "orient": "h" },
+    "4": { "type": "stacked", "x": "name", "values": ["a", "b"], "exclude": { "field": "name", "values": ["Total"] } },
+    "5": { "type": "scatter", "x": "a", "y": "b", "name": "label_column", "key": "state", "xDomain": [-90, 150] },
+    "6": { "type": "line", "x": "year", "y": "value", "series": "group_column" }
+  },
+  "lookup": { "afterFigure": 2, "title": "Find your state", "data": "path/states.csv", "key": "state",
+              "fields": [ { "field": "change_pct", "label": "Change, 2019 to 2025", "unit": "percent" } ] },
+  "places": { "path": "topic-name", "data": "assets/<id>/states.csv", "key": "state", "names": "us-states",
+              "title": "{name}: ...", "description": "... {name} ... {change_pct} ...",
+              "intro": "First paragraph with the number and its source, using {name} and {column} tokens.",
+              "note": "The caution that applies to every place.", "indexTitle": "...", "indexIntro": "...",
+              "fields": [ { "field": "change_pct", "label": "Change (%)" } ] }
+}
+```
+
+- Figure keys are the figure numbers in the captions ("Figure 2.").
+- `steps` turns a figure into a scroll-led one: the chart stays in view while the reader scrolls through the sentences, and each step can highlight a value, switch the `y` column or filter rows. Write each step as a sentence that is in the report.
+- A map uses two-letter state codes in the `key` column. Choosing a state in the lookup, or clicking it on the map, highlights it on every chart that names the same `key`.
+- `lookup` prints the whole table in the page and adds a chooser. There is no county lookup until a report has county data.
+- `places` writes one page per row at `topics/<path>/<place>.html` plus an index page listing them all. Every sentence pattern is yours.
+- Question pages: put `publications/questions/<id>.md` with frontmatter `id`, `question`, `description`, `report` (the report's id), `status: "published"`, optional `related: ["other-id|Link text"]`. The first paragraph is the answer and should carry the number and its source. To preview questions for a draft, put them in `<draft file name>.questions/`.
+
+Libraries, loaded only on pages that have a sidecar: D3 7.9.0, Observable Plot 0.6.17, topojson-client 3.1.0 and the us-atlas 3.0.1 state shapes, from jsDelivr with integrity hashes (see `LIBS` in `build_site.py`).
+
+**Search guidance this follows (checked 2026-11-27).** Google retired the FAQ rich result in 2026 and its QAPage markup is for user-submitted answers, so question pages carry `Article` data only. Google's spam policies name "scaled content abuse" and "doorway" pages and give no exemption for per-place pages; they are judged on real per-place data, a real destination and a browseable hierarchy, which is why every place page shows its own numbers and an index page lists them all.
+
+| Topic | Source |
+|---|---|
+| FAQ rich result retired | https://developers.google.com/search/updates#removing-faq-rich-result |
+| QAPage scope | https://developers.google.com/search/docs/appearance/structured-data/qapage |
+| People-first content | https://developers.google.com/search/docs/fundamentals/creating-helpful-content |
+| Spam policies | https://developers.google.com/search/docs/essentials/spam-policies |
+| Title links, snippets | https://developers.google.com/search/docs/appearance/title-link, https://developers.google.com/search/docs/appearance/snippet |
+| Dataset markup (not yet emitted) | https://developers.google.com/search/docs/appearance/structured-data/dataset |
+| Library versions and files | https://data.jsdelivr.com/v1/packages/npm/d3 (and the same address for `@observablehq/plot`, `topojson-client`, `us-atlas`) |
+
 ## Preview an unapproved draft
 
 ```bash

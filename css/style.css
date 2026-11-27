@@ -360,12 +360,60 @@ a.report-cover:hover { color: #fff; background: var(--ink); }
 .figure-source { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
 .pub-table { font-size: 0.93rem; }
 .pub-table td:first-child { padding-left: 0; }
-.pub-references { font-size: 0.93rem; }
+.pub-references { font-size: 0.93rem; overflow-wrap: anywhere; }
 .cite-block { border: 1px solid var(--rule); border-left: 4px solid var(--aubergine); padding: 16px 20px 6px; margin-top: 40px; }
 .report-body .cite-block h2 { margin: 0 0 8px; font-size: 1.05rem; }
 .cite-text { font-size: 0.95rem; overflow-wrap: anywhere; }
 .draft-banner { background: #B03A2E; color: #fff; text-align: center; font-weight: 600; padding: 10px 16px; position: sticky; top: 0; z-index: 20; }
 .is-draft .publication { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='300'%3E%3Ctext x='40' y='190' font-family='Helvetica,Arial,sans-serif' font-size='82' font-weight='700' fill='%23B03A2E' fill-opacity='0.09' transform='rotate(-24 210 150)'%3EDRAFT%3C/text%3E%3C/svg%3E"); }
+
+/* --- Interactive figures (js/figures.js). Everything here also works with scripts off. --- */
+.figure-chart { border: 1px solid var(--rule); background: #fff; padding: 12px 10px 6px; overflow: hidden; }
+.figure-chart[hidden] { display: none; }
+.figure-chart svg { max-width: 100%; height: auto; display: block; }
+.figure-chart figure { margin: 0; }
+.pub-figure img[hidden] { display: none; }
+.figure-data { margin-top: 10px; font-size: 0.9rem; }
+.figure-data:not([open]) > :not(summary) { display: none; }
+.figure-data summary { cursor: pointer; color: var(--teal-deep); font-weight: 500; }
+.figure-data .table-wrap { max-height: 420px; overflow: auto; margin-top: 10px; border: 1px solid var(--rule); }
+.figure-data table { margin: 0; font-size: 0.86rem; }
+.figure-data th { position: sticky; top: 0; background: #fff; }
+.figure-data td, .figure-data th { padding: 6px 10px; }
+.figure-downloads { font-size: 0.88rem; color: var(--muted); margin: 8px 0 0; }
+.figure-downloads a { margin-left: 8px; }
+.figure-steps { margin: 14px 0 0; padding-left: 20px; font-size: 0.95rem; }
+.figure-steps li { list-style: decimal; margin-bottom: 8px; }
+.pub-figure.scrolly { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); column-gap: 28px; align-items: start; }
+.pub-figure.scrolly > .scrolly-figure { grid-column: 1; position: sticky; top: 16px; }
+.pub-figure.scrolly > .figure-steps { grid-column: 2; margin: 0; padding: 0; }
+.pub-figure.scrolly > .figure-steps li { list-style: none; margin: 0 0 46vh; padding: 14px 16px; border-left: 4px solid var(--rule); background: #fff; color: var(--muted); cursor: pointer; }
+.pub-figure.scrolly > .figure-steps li:last-child { margin-bottom: 8vh; }
+.pub-figure.scrolly > .figure-steps li.is-active { border-left-color: var(--coral); color: var(--ink); }
+.place-lookup { border: 1px solid var(--rule); border-top: 4px solid var(--teal); padding: 18px 22px 14px; margin: 0 0 30px; }
+.place-lookup h3 { margin: 0 0 10px; }
+.place-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; max-width: 420px; }
+.place-controls label { font-weight: 600; color: var(--ink); font-size: 0.92rem; }
+.place-result { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; margin-bottom: 14px; }
+.place-result:empty { display: none; }
+.place-name { grid-column: 1 / -1; font-size: 1.2rem; font-weight: 600; color: var(--ink); }
+.place-result dt { font-size: 0.84rem; color: var(--muted); }
+.place-result dd { font-size: 1.25rem; font-weight: 600; color: var(--aubergine); font-variant-numeric: tabular-nums; }
+.answer { font-size: 1.12rem; color: var(--ink); max-width: 74ch; }
+.place-facts dd { font-size: 1.2rem; font-weight: 600; color: var(--aubergine); }
+.place-list { columns: 3; padding-left: 0; }
+.report-body .place-list li { list-style: none; }
+.report-body code { font-family: inherit; font-size: inherit; overflow-wrap: anywhere; }
+.report-body a { overflow-wrap: anywhere; }
+@media (max-width: 900px) {
+  .pub-figure.scrolly { display: block; }
+  .pub-figure.scrolly > .scrolly-figure { display: contents; }
+  .pub-figure.scrolly .figure-chart { position: sticky; top: 0; z-index: 2; }
+  .pub-figure.scrolly > .figure-steps { margin-top: 14px; }
+  .pub-figure.scrolly > .figure-steps li { margin-bottom: 30vh; }
+  .place-result { grid-template-columns: 1fr; }
+  .place-list { columns: 2; }
+}
 
 /* --- Report page --- */
 .report-head { padding: 44px 0 40px; border-bottom: 1px solid var(--rule); }
@@ -375,7 +423,11 @@ a.report-cover:hover { color: #fff; background: var(--ink); }
 .report-meta { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 4px 36px; font-size: 0.92rem; margin-bottom: 22px; }
 .report-meta dt { color: var(--muted); font-size: 0.82rem; grid-row: 1; }
 .report-meta dd { color: var(--ink); grid-row: 2; }
-.report-body { max-width: 74ch; padding: 44px 0 20px; }
+.report-body { padding: 44px 0 20px; }
+.report-body > p, .report-body > ul, .report-body > ol, .report-body > blockquote, .report-body > h2, .report-body > h3, .report-body > h4,
+.report-body > hr, .report-body > section, .report-body > .pub-figure:not(.scrolly):not(.is-interactive) { max-width: 74ch; }
+.report-body > .pub-figure.is-interactive:not(.scrolly) { max-width: 900px; }
+.report-body > .place-lookup { max-width: 900px; }
 .report-body h2 { font-size: 1.4rem; margin: 40px 0 12px; }
 .report-body h2:first-child { margin-top: 0; }
 .report-body h3 { font-size: 1.1rem; margin: 26px 0 8px; }
