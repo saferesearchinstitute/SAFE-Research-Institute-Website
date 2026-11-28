@@ -88,6 +88,7 @@ The page is complete without JavaScript: every figure has its static image, its 
 
 - Figure keys are the figure numbers in the captions ("Figure 2.").
 - `steps` turns a figure into a scroll-led one: the chart stays in view while the reader scrolls through the sentences, and each step can highlight a value, switch the `y` column or filter rows. Write each step as a sentence that is in the report.
+- A line chart starts its vertical axis at zero unless the figure sets `"yDomain": [low, high]`; say so in the caption when it does.
 - A map uses two-letter state codes in the `key` column. Choosing a state in the lookup, or clicking it on the map, highlights it on every chart that names the same `key`.
 - `lookup.map` adds a U.S. state map above the chooser, shaded by one of the listed columns of the lookup's own table, with a button for each measure. Clicking a state selects it in the chooser and in the address; choosing a state outlines it on the map. Hover or tap shows the state's name and every listed measure. One light-to-dark purple ramp is used. The map is one keyboard tab stop: arrow keys move to the nearest state in that direction, Home and End go to the first and last by name, Enter or Space selects, and the focused state's values show in the line under the map. Without scripts the map box stays hidden and the table is the fallback.
 - `lookup` prints the whole table in the page and adds a chooser. There is no county lookup until a report has county data.

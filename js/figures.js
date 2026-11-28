@@ -68,11 +68,11 @@
       options = Object.assign(base, {
         height: small ? 280 : 380,
         x: { label: lab(s.x), tickFormat: d => String(d), nice: true },
-        y: { label: lab(s.y), grid: true, zero: s.zero !== false },
+        y: { label: lab(s.y), grid: true, zero: s.zero !== false && !s.yDomain, domain: s.yDomain },
         color: s.series ? { legend: true, range: SERIES } : undefined,
         marks: [
           hasBand ? Plot.areaY(rows.filter(d => d[s.low] != null), { x: s.x, y1: s.low, y2: s.high, fill: C.mist, fillOpacity: 0.7 }) : null,
-          Plot.ruleY([0], { stroke: C.rule }),
+          s.yDomain ? null : Plot.ruleY([0], { stroke: C.rule }),
           Plot.lineY(rows, s.series ? { x: s.x, y: s.y, z: s.series, stroke: s.series, strokeWidth: 2 } : { x: s.x, y: s.y, stroke: C.muted, strokeWidth: 1.5 }),
           Plot.dot(rows, { x: s.x, y: s.y, r: d => (isHi(d) ? 7 : 4.5), fill: s.series ? s.series : fillFor, stroke: '#fff', tip: true,
             channels: tipChannels([s.x, s.y, s.low, s.high, s.series]) })
