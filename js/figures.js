@@ -63,11 +63,13 @@
     const base = { width, marginLeft: 56, marginBottom: 44, style: { fontFamily: 'inherit', fontSize: small ? '11px' : '12.5px', color: C.ink, background: '#fff', overflow: 'visible' } };
     let options;
 
+    // a short run of whole-number x values (years) gets one tick per value, never 2019.5
+    const wholeX = (rs, f) => { const xs = Array.from(new Set(rs.map(d => d[f]))); return xs.length <= 10 && xs.every(Number.isInteger) ? xs : undefined; };
     if (s.type === 'line') {
       const hasBand = s.low && s.high && rows.some(d => d[s.low] != null && d[s.high] != null);
       options = Object.assign(base, {
         height: small ? 280 : 380,
-        x: { label: lab(s.x), tickFormat: d => String(d), nice: true },
+        x: { label: lab(s.x), tickFormat: d => String(d), nice: true, ticks: wholeX(rows, s.x) },
         y: { label: lab(s.y), grid: true, zero: s.zero !== false && !s.yDomain, domain: s.yDomain },
         color: s.series ? { legend: true, range: SERIES } : undefined,
         marks: [
