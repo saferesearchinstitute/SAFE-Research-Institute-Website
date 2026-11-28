@@ -73,11 +73,16 @@ def inline(s):
     s = html.escape(s, quote=False)
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2" rel="noopener">\1</a>', s)
     s = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", r'<a href="\2">\1</a>', s)
+    # a bare web address (as in a reference list) becomes a link
+    s = re.sub(r'(?<![">=])(https?://[^\s<]+[^\s<.,;:)\]])', r'<a href="\1" rel="noopener">\1</a>', s)
+    # a data file named in the text becomes a download link; other code spans stay as written
+    s = re.sub(r"`((?:[^`\s]*/)?([^`\s/]+\.csv))`", r'<a href="\1" download>\2</a>', s)
+    s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
     s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"(?<![*\w])\*(?!\s)(.+?)(?<!\s)\*(?![*\w])", r"<em>\1</em>", s)
     return s
 
-def md_to_html(md, img_base=""):
+def md_to_html(md, img_base="", ctx=None):
     """Headings, paragraphs, quotes, rules, lists one level deep, pipe tables, links,
     and figures: an image line followed by an italic caption line and an optional 'Source: ...' line."""
     lines = md.split("\n")
@@ -122,8 +127,7 @@ def md_to_html(md, img_base=""):
                 if k < len(lines) and lines[k].strip().lower().startswith("source:"):
                     source = lines[k].strip(); i = k
             counts["figures"] += 1
-            cap = f"<figcaption>{inline(caption)}" + (f'<span class="figure-source">{inline(source)}</span>' if source else "") + "</figcaption>" if caption else ""
-            out.append(f'<figure class="pub-figure"><img src="{img_base}{html.escape(src)}" alt="{html.escape(alt)}" loading="lazy">{cap}</figure>')
+            out.append(figure_html(alt, src, caption, source, img_base, ctx))
             i += 1
             continue
         m = re.match(r"^(\s*)([-*]|\d+\.)\s+(.*)$", line)
@@ -155,6 +159,87 @@ def md_to_html(md, img_base=""):
         para.append(line.strip()); i += 1
     flush(); close()
     return "\n".join(out), counts
+
+def csv_table(path, labels=None, cls="data-table pub-table"):
+    """A CSV file as an HTML table. Header cells carry the column name so js/figures.js can read it."""
+    import csv
+    with open(path, newline="") as fh:
+        rows = list(csv.reader(fh))
+    head, body = rows[0], rows[1:]
+    label = lambda f: (labels or {}).get(f) or f.replace("_", " ")
+    th = "".join(f'<th scope="col" data-field="{html.escape(f)}">{html.escape(label(f))}</th>' for f in head)
+    tb = "".join("<tr>" + "".join(f"<td>{html.escape(c)}</td>" for c in r) + "</tr>" for r in body)
+    return f'<div class="table-wrap"><table class="{cls}"><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>', len(body)
+
+def figure_html(alt, src, caption, source, img_base, ctx):
+    """A figure: static image, caption, and (when the caption names a data file) the numbers as a table,
+    download links, and the chart settings from the sidecar file for js/figures.js."""
+    data = None
+    m = re.search(r"\s*Data:\s*`([^`]+\.csv)`\.?", caption)
+    if m:                                   # "Data: `file.csv`." names the figure's data file and is dropped from the caption
+        data = m.group(1); caption = (caption[:m.start()] + caption[m.end():]).strip()
+    else:                                   # otherwise the first data file the caption mentions is used and becomes a link
+        m = re.search(r"`([^`]+\.csv)`", caption)
+        if m:
+            data = m.group(1); caption = caption[:m.start()] + f"[the data file]({img_base}{data})" + caption[m.end():]
+    num = re.match(r"^Figure (\d+)\.", caption)
+    spec = (ctx.charts.get("figures", {}).get(num.group(1)) if ctx and num else None) or {}
+    alt = spec.get("alt") or alt
+    attrs, extra = "", ""
+    if data and ctx:
+        table, n = csv_table(ctx.asset_path(data), spec.get("labels"))
+        label = f"Data for Figure {num.group(1)}" if num else "Data for this figure"
+        extra += f'<details class="figure-data"><summary>{label} ({n} rows)</summary>{table}</details>'
+        name = pathlib.Path(src).name
+        extra += (f'<p class="figure-downloads">Download: <a href="{img_base}{html.escape(data)}" download>data (CSV)</a> '
+                  f'<a href="{img_base}{html.escape(src)}" download="{html.escape(name)}" data-download="png">image (PNG)</a></p>')
+        if spec.get("type"):
+            chart = {k: v for k, v in spec.items() if k not in ("steps", "alt")}
+            attrs = f" data-chart='{html.escape(json.dumps(chart), quote=False).replace(chr(39), '&#39;')}'"
+            ctx.interactive = True
+            if chart["type"] == "map":
+                ctx.needs_map = True
+    steps = ""
+    if spec.get("steps"):
+        lis = "".join(f"<li data-step='{html.escape(json.dumps({k: v for k, v in st.items() if k != 'text'}), quote=False)}'>{inline(st['text'])}</li>" for st in spec["steps"])
+        steps = f'<ol class="figure-steps">{lis}</ol>'
+    cap = f"<figcaption>{inline(caption)}" + (f'<span class="figure-source">{inline(source)}</span>' if source else "") + "</figcaption>" if caption else ""
+    fig = f'<figure class="pub-figure"{attrs}><img src="{img_base}{html.escape(src)}" alt="{html.escape(alt)}" loading="lazy">{cap}{steps}{extra}</figure>'
+    look = ctx.charts.get("lookup") if ctx else None
+    if look and num and str(look.get("afterFigure")) == num.group(1):
+        table, n = csv_table(ctx.asset_path(look["data"]), look.get("labels"))
+        cfg = {k: look[k] for k in ("key", "prompt", "placeholder", "fields") if k in look}
+        ctx.interactive = True
+        fig += (f"<section class=\"place-lookup\" data-lookup='{html.escape(json.dumps(cfg), quote=False).replace(chr(39), '&#39;')}'>"
+                f'<h3>{html.escape(look.get("title", "Find your state"))}</h3>'
+                + (f'<p>{inline(look["intro"])}</p>' if look.get("intro") else "")
+                + lookup_map_html(look, ctx)
+                + f'<div class="place-lookup-body"><details class="figure-data"><summary>All {n} rows</summary>{table}</details>'
+                f'<p class="figure-downloads">Download: <a href="{img_base}{html.escape(look["data"])}" download>data (CSV)</a></p></div></section>')
+    return fig
+
+def lookup_map_html(look, ctx):
+    """A state map above the lookup's chooser. It colors states by one of the listed columns of the
+    lookup's own table; js/figures.js draws it. Without scripts the table below it is the fallback."""
+    m = look.get("map")
+    if not m:
+        return ""
+    ctx.needs_map = True
+    cfg = {"key": look["key"], "measures": m["measures"]}
+    cap = inline(m.get("caption", "")) + (f'<span class="figure-source">{inline(m["source"])}</span>' if m.get("source") else "")
+    return (f"<figure class=\"place-map\" data-map='{html.escape(json.dumps(cfg), quote=False).replace(chr(39), '&#39;')}'>"
+            f'<div class="place-map-toggle" role="group" aria-label="Measure shown on the map" hidden></div>'
+            f'<div class="place-map-chart" hidden></div>'
+            f'<p class="place-map-hint" hidden>Select a state on the map, or use the State menu below. With a keyboard: Tab to the map, arrow keys to move between states, Enter to select.</p>'
+            f"<figcaption>{cap}</figcaption></figure>")
+
+class Ctx:
+    """What the markdown converter needs to know about one publication's files."""
+    def __init__(self, pub, page_dir):
+        self.charts, self.page_dir = pub.charts, pathlib.Path(page_dir)
+        self.interactive = self.needs_map = False
+    def asset_path(self, rel):
+        return self.page_dir / rel
 
 def plain(md):
     t = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", md)
@@ -190,6 +275,28 @@ class Pub:
         self.version = meta.get("version") or f"Version of {long_date(self.updated)}"
         self.is_news = self.kind == "News"
         body = re.sub(r"^#\s+.*\n", "", body, count=1)
+        # Editor's notes never ship: a draft preview drops them, a real build refuses.
+        m = re.search(r"^##\s+Editor.s notes.*", body, re.S | re.M | re.I)
+        if m:
+            assert draft, f"{self.path.name} still has an Editor's notes section. Remove it before publishing."
+            body = body[:m.start()].rstrip().rstrip("-").rstrip()
+        # the page prints its own citation block
+        body = re.sub(r"^##\s+Suggested citation\s*\n.*?(?=^##\s|\Z)", "", body, flags=re.S | re.M | re.I)
+        # chart settings, scroll steps and the place lookup live beside the markdown, never in it
+        side = self.path.with_suffix(".charts.json")
+        self.charts = json.loads(side.read_text()) if side.exists() else {}
+        # figures and data files are copied next to the page under assets/<id>/
+        self.assets = {}
+        def asset(rel):
+            if re.match(r"^(https?:|data:|assets/)", rel):
+                return rel
+            dest = f"assets/{self.slug}/{pathlib.Path(rel).name}"
+            self.assets[dest] = self.path.parent / rel
+            return dest
+        body = re.sub(r"(!\[[^\]]*\]\()([^)\s]+)(\))", lambda m: m.group(1) + asset(m.group(2)) + m.group(3), body)
+        body = re.sub(r"(`)([^`\s]+\.csv)(`)", lambda m: m.group(1) + asset(m.group(2)) + m.group(3), body)
+        if self.charts.get("lookup", {}).get("data"):
+            self.charts["lookup"]["data"] = asset(self.charts["lookup"]["data"])
         # a section headed "Key findings" is lifted into the box at the top
         self.key_findings = ""
         m = re.search(r"^##\s+Key findings\s*\n(.*?)(?=^##\s|\Z)", body, re.S | re.M | re.I)
@@ -217,6 +324,7 @@ class Pub:
 
     def stats(self):
         _, c = md_to_html(self.body_md)
+        c["interactive"] = len([f for f in self.charts.get("figures", {}).values() if f.get("type")])
         links = len(re.findall(r"\]\(https?://", self.body_md + self.references))
         refs = len(re.findall(r"^\s*(\d+\.|-)\s", self.references, re.M))
         return dict(words=len(plain(self.body_md).split()), figures=c["figures"], tables=c["tables"], links=links, references=refs)
@@ -281,6 +389,24 @@ def json_ld(p):
         data["encoding"] = {"@type": "MediaObject", "encodingFormat": "application/pdf", "contentUrl": p.pdf_url}
     return '  <script type="application/ld+json">\n' + json.dumps(data, indent=2, ensure_ascii=False) + "\n  </script>\n"
 
+# ---------------------------------------------------------------- interactive figure libraries
+# Exact versions from the jsDelivr CDN, with integrity hashes. Loaded only on pages that declare
+# interactive figures. Sources and the date checked are in docs/templates/README.md.
+LIBS = {
+    "d3": ("https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js",
+           "sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i"),
+    "plot": ("https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js",
+             "sha384-JUpn2GgRr0gxU0xOBd8D8P634jhRCwobtG8G2MMEkX1RnGJ7/FJNnuukpfT+H2w1"),
+    "topojson": ("https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js",
+                 "sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67"),
+    "us_atlas": ("https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-albers-10m.json",
+                 "sha384-vyqp+z8MYIFZU8V1K7x8eeS6f4qq+zp2l6YqE81ZLpCykssi+zpvpQSkQNRqIaJb"),
+}
+
+def script_tag(lib):
+    src, integrity = lib
+    return f'<script src="{src}" integrity="{integrity}" crossorigin="anonymous" defer></script>'
+
 # ---------------------------------------------------------------- pages
 
 def chrome(prefix="../"):
@@ -300,9 +426,17 @@ def cover_html(p, prefix="../", link=None):
       <div class="report-cover-foot">{ORG}<br>{html.escape(p.version)}</div>
     </{tag}>"""
 
-def page_html(p, prefix="../", img_base=""):
+def page_html(p, prefix="../", img_base="", page_dir=None):
     head, foot = chrome(prefix)
-    body_html, _ = md_to_html(p.body_md, img_base)
+    ctx = Ctx(p, page_dir or ROOT / "library")
+    body_html, _ = md_to_html(p.body_md, img_base, ctx)
+    if ctx.interactive:
+        tags = [script_tag(LIBS["d3"]), script_tag(LIBS["plot"])]
+        if ctx.needs_map:
+            tags.append(script_tag(LIBS["topojson"]))
+            head = head.replace('<html lang="en">', f'<html lang="en" data-us-atlas="{LIBS["us_atlas"][0]}" data-us-atlas-integrity="{LIBS["us_atlas"][1]}">')
+        tags.append(f'<script src="{prefix}js/figures.js" defer></script>')
+        foot = foot.replace("</body>", "\n".join(tags) + "\n</body>")
     lic_url, lic_text = LICENSES[p.license]
     canonical = p.url
     robots = '  <meta name="robots" content="noindex, nofollow">\n' if p.draft else ""
@@ -379,6 +513,110 @@ def page_html(p, prefix="../", img_base=""):
 </main>"""
     return head + main + foot
 
+# ---------------------------------------------------------------- question pages and place pages
+# Both are generated only from files the report's authors write. Nothing here supplies wording or numbers.
+
+US_STATES = dict(l.split("=") for l in """AL=Alabama AK=Alaska AZ=Arizona AR=Arkansas CA=California CO=Colorado CT=Connecticut DE=Delaware DC=District_of_Columbia FL=Florida GA=Georgia HI=Hawaii ID=Idaho IL=Illinois IN=Indiana IA=Iowa KS=Kansas KY=Kentucky LA=Louisiana ME=Maine MD=Maryland MA=Massachusetts MI=Michigan MN=Minnesota MS=Mississippi MO=Missouri MT=Montana NE=Nebraska NV=Nevada NH=New_Hampshire NJ=New_Jersey NM=New_Mexico NY=New_York NC=North_Carolina ND=North_Dakota OH=Ohio OK=Oklahoma OR=Oregon PA=Pennsylvania RI=Rhode_Island SC=South_Carolina SD=South_Dakota TN=Tennessee TX=Texas UT=Utah VT=Vermont VA=Virginia WA=Washington WV=West_Virginia WI=Wisconsin WY=Wyoming""".split())
+US_STATES = {k: v.replace("_", " ") for k, v in US_STATES.items()}
+
+def simple_page(prefix, title, description, canonical, main, draft, ld=None):
+    head, foot = chrome(prefix)
+    robots = '  <meta name="robots" content="noindex, nofollow">\n' if draft else ""
+    share = "" if draft else (f'  <link rel="canonical" href="{canonical}">\n  <meta property="og:type" content="article">\n'
+                              f'  <meta property="og:site_name" content="{ORG}">\n  <meta property="og:title" content="{html.escape(title)}">\n'
+                              f'  <meta property="og:description" content="{html.escape(description)}">\n  <meta property="og:url" content="{canonical}">\n'
+                              f'  <meta property="og:image" content="{SITE}/img/og/default.png">\n  <meta name="twitter:card" content="summary_large_image">\n')
+    ldtag = "" if draft or not ld else '  <script type="application/ld+json">\n' + json.dumps(ld, indent=2, ensure_ascii=False) + "\n  </script>\n"
+    head = (head.replace("{{TITLE}}", html.escape(title)).replace("{{DESCRIPTION}}", html.escape(description))
+                .replace("{{HEAD_EXTRA}}", robots + share + ldtag))
+    banner = '<div class="draft-banner" role="note">DRAFT. Not approved for publication. Do not share or cite.</div>\n' if draft else ""
+    cls = ' class="is-draft"' if draft else ""
+    return head + f'<main id="main"{cls}>\n{banner}{main}\n</main>' + foot
+
+def question_page(path, report, draft, prefix="../"):
+    """One page per question people search. Frontmatter: id, question, description, report, updatedAt, related.
+    The first paragraph is the answer and should carry the number and its source."""
+    meta, body = frontmatter(pathlib.Path(path).read_text())
+    slug = meta.get("id") or pathlib.Path(path).stem
+    q, desc = meta["question"], meta.get("description", "")
+    body = re.sub(r"^#\s+.*\n", "", body, count=1).strip()
+    first, _, rest = body.partition("\n\n")
+    rest_html, _ = md_to_html(rest)
+    related = "".join(f'<li><a href="{r}.html">{html.escape(t)}</a></li>' for r, t in [x.split("|", 1) for x in listval(meta.get("related")) if "|" in x])
+    main = f"""<article class="publication question-page">
+<div class="container breadcrumb"><a href="{prefix}library.html">Evidence Library</a></div>
+<header class="legal-hero"><div class="container">
+  <h1>{html.escape(q)}</h1>
+  <p class="answer">{inline(first.replace(chr(10), " "))}</p>
+</div></header>
+<div class="container"><div class="report-body">
+{rest_html}
+  <section class="cite-block"><h2>From the full report</h2>
+    <p><a href="{prefix}library/{report.slug}.html">{html.escape(report.title)}</a>. {html.escape(report.kind)}, {html.escape(report.version[0].lower() + report.version[1:])}. Methods, sources and limits are in the report.</p>
+  </section>
+  {f'<section class="related"><h2>Related questions</h2><ul>{related}</ul></section>' if related else ''}
+  <p class="report-note">{DISCLOSURE}</p>
+</div></div>
+</article>"""
+    url = f"{SITE}/questions/{slug}"
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": q, "description": desc, "url": url, "mainEntityOfPage": url,
+          "datePublished": (meta.get("createdAt") or report.created) + "T00:00:00+00:00",
+          "dateModified": (meta.get("updatedAt") or report.updated) + "T00:00:00+00:00",
+          "author": {"@type": "Organization", "name": ORG, "url": SITE + "/"}, "publisher": {"@type": "Organization", "name": ORG, "url": SITE + "/"},
+          "isBasedOn": report.url}
+    return slug, q, desc, simple_page(prefix, q, desc, url, main, draft, ld)
+
+def place_pages(report, page_dir, draft, prefix="../../"):
+    """One page per row of a data table (for example per state), plus an index page that lists them all.
+    Configured in the sidecar under "places"; every sentence pattern there is written by the report's authors.
+    Patterns may use {name} and any column as {column}."""
+    import csv
+    cfg = report.charts.get("places")
+    if not cfg:
+        return {}
+    src = pathlib.Path(page_dir) / cfg["data"] if not pathlib.Path(cfg["data"]).is_absolute() else pathlib.Path(cfg["data"])
+    with open(src, newline="") as fh:
+        rows = list(csv.DictReader(fh))
+    key, path = cfg["key"], cfg["path"]
+    name_of = lambda r: US_STATES.get(r[key], r[key]) if cfg.get("names") == "us-states" else r[key]
+    slug_of = lambda r: re.sub(r"[^a-z0-9]+", "-", name_of(r).lower()).strip("-")
+    num = lambda v: (f"{float(v):,.1f}".rstrip("0").rstrip(".") if re.match(r"^-?\d+(\.\d+)?$", v or "") else (v or "no value"))
+    fill = lambda pattern, r: pattern.format(name=name_of(r), **{k: num(v) for k, v in r.items()})
+    rows.sort(key=name_of)
+    out = {}
+    for r in rows:
+        title, desc = fill(cfg["title"], r), fill(cfg["description"], r)
+        facts = "".join(f"<div><dt>{html.escape(f['label'])}</dt><dd>{num(r.get(f['field']))}{' ' + f['unit'] if f.get('unit') else ''}</dd></div>" for f in cfg["fields"])
+        others = "".join(f'<li><a href="{slug_of(o)}.html">{html.escape(name_of(o))}</a></li>' for o in rows if o is not r)
+        main = f"""<article class="publication place-page">
+<div class="container breadcrumb"><a href="{prefix}library.html">Evidence Library</a> / <a href="{prefix}library/{report.slug}.html">{html.escape(report.title)}</a> / <a href="index.html">{html.escape(cfg.get('indexTitle', 'All places'))}</a></div>
+<header class="legal-hero"><div class="container">
+  <h1>{html.escape(fill(cfg.get('heading', cfg['title']), r))}</h1>
+  <p class="answer">{inline(fill(cfg['intro'], r))}</p>
+</div></header>
+<div class="container"><div class="report-body">
+  <dl class="pub-meta place-facts">{facts}</dl>
+  {f"<p>{inline(fill(cfg['note'], r))}</p>" if cfg.get('note') else ''}
+  <section class="cite-block"><h2>From the full report</h2>
+    <p><a href="{prefix}library/{report.slug}.html#{key}={r[key]}">{html.escape(report.title)}</a>, with this place highlighted. Methods, sources and limits are in the report.</p>
+  </section>
+  <section class="related"><h2>{html.escape(cfg.get('indexTitle', 'All places'))}</h2><ul class="place-list">{others}</ul></section>
+  <p class="report-note">{DISCLOSURE}</p>
+</div></div>
+</article>"""
+        url = f"{SITE}/topics/{path}/{slug_of(r)}"
+        out[f"topics/{path}/{slug_of(r)}.html"] = simple_page(prefix, title, desc, url, main, draft)
+    th = "".join(f"<th scope=\"col\">{html.escape(f['label'])}</th>" for f in cfg["fields"])
+    tb = "".join(f'<tr><td><a href="{slug_of(r)}.html">{html.escape(name_of(r))}</a></td>' + "".join(f"<td>{num(r.get(f['field']))}</td>" for f in cfg["fields"]) + "</tr>" for r in rows)
+    main = f"""<article class="publication">
+<div class="container breadcrumb"><a href="{prefix}library.html">Evidence Library</a> / <a href="{prefix}library/{report.slug}.html">{html.escape(report.title)}</a></div>
+<header class="legal-hero"><div class="container"><h1>{html.escape(cfg.get('indexTitle', 'All places'))}</h1><p>{inline(cfg.get('indexIntro', ''))}</p></div></header>
+<div class="container"><div class="report-body" style="max-width:none">
+<div class="table-wrap"><table class="data-table pub-table"><thead><tr><th scope="col">Place</th>{th}</tr></thead><tbody>{tb}</tbody></table></div>
+<p class="report-note">{DISCLOSURE}</p></div></div></article>"""
+    out[f"topics/{path}/index.html"] = simple_page(prefix, cfg.get("indexTitle", "All places"), cfg.get("indexIntro", ""), f"{SITE}/topics/{path}", main, draft)
+    return out
+
 # ---------------------------------------------------------------- PDF and preview image
 
 PRINT_CSS = """
@@ -405,6 +643,9 @@ figure { margin: 10pt 0 14pt; break-inside: avoid; }
 figure img { max-width: 100%; }
 figcaption { font-size: 9pt; color: #676380; margin-top: 4pt; }
 .figure-source { display: block; }
+.figure-data, .figure-downloads, .place-lookup { display: none; }
+.figure-steps { font-size: 9pt; margin: 4pt 0 0 14pt; }
+code { font-family: inherit; }
 .key-findings { border: 1pt solid #DAD8E4; border-top: 3pt solid #93B7BD; padding: 10pt 14pt 4pt; margin-bottom: 14pt; break-inside: avoid; }
 .key-findings h2 { border: 0; margin: 0 0 6pt; padding: 0; }
 .cite { border-top: 0.75pt solid #DAD8E4; margin-top: 18pt; padding-top: 10pt; font-size: 9pt; }
@@ -437,8 +678,9 @@ def inline_images(doc, base):
 def build_pdf(p, browser, out_path, img_dir=None):
     from pypdf import PdfReader, PdfWriter
     lic_url, lic_text = LICENSES[p.license]
-    body_html, _ = md_to_html(p.body_md)
-    body_html = inline_images(body_html, img_dir or ROOT / "library")
+    base_dir = pathlib.Path(img_dir or ROOT / "library")
+    body_html, _ = md_to_html(p.body_md, "", Ctx(p, base_dir))
+    body_html = inline_images(body_html, base_dir)
     kf = ""
     if p.key_findings:
         k, _ = md_to_html(p.key_findings); kf = f'<div class="key-findings"><h2>Key findings</h2>{k}</div>'
@@ -549,6 +791,7 @@ def site_outputs(pubs):
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"  <url><loc>{SITE}/{s}</loc></url>" for s in STATIC_PAGES]
     sm += [f"  <url><loc>{p.url}</loc><lastmod>{p.updated}</lastmod></url>" for p in pubs]
+    sm += [f"  <url><loc>{u}</loc></url>" for u, _, _ in EXTRA_URLS]
     out["sitemap.xml"] = "\n".join(sm) + "\n</urlset>\n"
     out["robots.txt"] = ("# Search engines and AI systems are welcome to read, index and cite everything published here.\n"
                          "# One group for every crawler, so the two private tool pages stay excluded for all of them.\n"
@@ -576,6 +819,16 @@ def site_outputs(pubs):
 
 # ---------------------------------------------------------------- main
 
+EXTRA_URLS = []
+
+def copy_assets(p, page_dir):
+    import shutil
+    for dest, src in p.assets.items():
+        target = pathlib.Path(page_dir) / dest
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if src.resolve() != target.resolve():
+            shutil.copyfile(src, target)
+
 def main():
     args = sys.argv[1:]
     if "--draft" in args:
@@ -585,16 +838,41 @@ def main():
         assert ignored, f"{out} is not git-ignored. Draft previews must never be committed."
         p = Pub(src, draft=True)
         out.mkdir(parents=True, exist_ok=True)
-        (out / f"{p.slug}.html").write_text(page_html(p, prefix="../"))
+        copy_assets(p, out)
+        (out / f"{p.slug}.html").write_text(page_html(p, prefix="../", page_dir=out))
+        extra = 0
+        qdir = src.parent / (src.stem + ".questions")
+        for q in sorted(qdir.glob("*.md")) if qdir.exists() else []:
+            slug, _, _, doc = question_page(q, p, True, prefix="../../")
+            doc = doc.replace(f"../../library/{p.slug}.html", f"../{p.slug}.html")
+            (out / "questions").mkdir(exist_ok=True); (out / "questions" / f"{slug}.html").write_text(doc); extra += 1
+        for rel, doc in place_pages(p, out, True, prefix="../../../").items():
+            doc = doc.replace(f"../../../library/{p.slug}.html", f"../../{p.slug}.html")
+            f = out / rel; f.parent.mkdir(parents=True, exist_ok=True); f.write_text(doc); extra += 1
+        print(f"  plus {extra} question and place pages")
         from playwright.sync_api import sync_playwright
         with sync_playwright() as pw:
             b = pw.chromium.launch()
-            n = build_pdf(p, b, out / "pdf" / f"{p.slug}.pdf", img_dir=src.parent)
+            n = build_pdf(p, b, out / "pdf" / f"{p.slug}.pdf", img_dir=out)
             b.close()
         print(f"draft preview: {out / (p.slug + '.html')} ({n} PDF pages). Not listed anywhere.")
         return
     pubs = load_pubs()
+    if "--check" not in args:
+        for p in pubs:
+            copy_assets(p, ROOT / "library")
     files = {f"library/{p.slug}.html": page_html(p) for p in pubs}
+    by_slug = {p.slug: p for p in pubs}
+    extra_urls = []
+    for q in sorted((ROOT / "publications/questions").glob("*.md")) if (ROOT / "publications/questions").exists() else []:
+        meta, _ = frontmatter(q.read_text())
+        if meta.get("status") == "published" and meta.get("report") in by_slug:
+            slug, question, desc, doc = question_page(q, by_slug[meta["report"]], False)
+            files[f"questions/{slug}.html"] = doc; extra_urls.append((f"{SITE}/questions/{slug}", question, desc))
+    for p in pubs:
+        for rel, doc in place_pages(p, ROOT / "library", False).items():
+            files[rel] = doc; extra_urls.append((f"{SITE}/{rel[:-5]}".replace("/index", ""), "", ""))
+    EXTRA_URLS[:] = extra_urls
     files.update(site_outputs(pubs))
     if "--check" in args:
         stale = [f for f, t in files.items() if not (ROOT / f).exists() or (ROOT / f).read_text() != t]
