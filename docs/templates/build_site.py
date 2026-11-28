@@ -230,7 +230,7 @@ def lookup_map_html(look, ctx):
     return (f"<figure class=\"place-map\" data-map='{html.escape(json.dumps(cfg), quote=False).replace(chr(39), '&#39;')}'>"
             f'<div class="place-map-toggle" role="group" aria-label="Measure shown on the map" hidden></div>'
             f'<div class="place-map-chart" hidden></div>'
-            f'<p class="place-map-hint" hidden>Select a state on the map, or use the State menu below.</p>'
+            f'<p class="place-map-hint" hidden>Select a state on the map, or use the State menu below. With a keyboard: Tab to the map, arrow keys to move between states, Enter to select.</p>'
             f"<figcaption>{cap}</figcaption></figure>")
 
 class Ctx:

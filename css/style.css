@@ -400,6 +400,8 @@ a.report-cover:hover { color: #fff; background: var(--ink); }
 .place-map-chart { border: 1px solid var(--rule); background: #fff; padding: 10px 8px 4px; overflow: hidden; }
 .place-map-chart svg { max-width: 100%; height: auto; display: block; }
 .place-map-chart figure { margin: 0; }
+.place-map-chart path[role="button"] { outline: none; }
+.place-map-chart path[role="button"]:focus-visible { stroke: var(--teal-deep); stroke-width: 4; }
 .place-map-hint { font-size: 0.86rem; color: var(--muted); margin: 8px 0 0; }
 .place-map figcaption { font-size: 0.9rem; color: var(--text); margin-top: 8px; }
 .place-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; max-width: 420px; }

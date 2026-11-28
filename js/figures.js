@@ -284,9 +284,63 @@
         const f = chart.value;
         if (f && f.id && byFips.has(f.id)) document.dispatchEvent(new CustomEvent('place:select', { detail: { key, value: byFips.get(f.id).postal } }));
       });
+      const hadFocus = holder.contains(document.activeElement);
       holder.replaceChildren(chart);
-      holder.setAttribute('role', 'img');
-      holder.setAttribute('aria-label', 'Map of the United States shaded by ' + m.label + (state.place ? '. Selected: ' + placeName(state.place) : ''));
+      holder.setAttribute('role', 'group');
+      holder.setAttribute('aria-label', 'Map of the United States shaded by ' + m.label + (state.place ? '. Selected: ' + placeName(state.place) : '') + '. Arrow keys move between states, Enter selects.');
+      keys(chart, hadFocus);
+    }
+
+    // Keyboard: the map is one tab stop; arrow keys move to the nearest state
+    // in that direction, Home and End jump to the first and last by name,
+    // Enter or Space selects. Focus shows the same values as hover.
+    const path = d3.geoPath();
+    const centre = new Map(feats.map(f => [f.id, path.centroid(f)]));
+    const order = feats.slice().sort((x, y) => byFips.get(x.id).name.localeCompare(byFips.get(y.id).name));
+    const describe = f => [byFips.get(f.id).name].concat(cfg.measures.map(x => `${x.label}: ${fmt(rowOf(f) ? rowOf(f)[x.field] : null)}${unit(x)}`)).join('. ');
+    const hintText = hint.textContent;
+    let current = null;
+    function keys(chart, refocus) {
+      const group = chart.querySelector('g[aria-label="geo"]');
+      const paths = group ? Array.from(group.querySelectorAll('path')) : [];
+      if (paths.length !== feats.length) return;
+      const el = new Map(feats.map((f, i) => [f.id, paths[i]]));
+      const selected = feats.find(f => state.place != null && byFips.get(f.id).postal === String(state.place));
+      if (!current || !el.has(current)) current = (selected || order[0]).id;
+      const go = id => { el.get(current).setAttribute('tabindex', '-1'); current = id; el.get(id).setAttribute('tabindex', '0'); el.get(id).focus(); };
+      const pick = f => document.dispatchEvent(new CustomEvent('place:select', { detail: { key, value: byFips.get(f.id).postal } }));
+      const DIR = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] };
+      feats.forEach(f => {
+        const p = el.get(f.id);
+        p.setAttribute('tabindex', f.id === current ? '0' : '-1');
+        p.setAttribute('role', 'button');
+        p.setAttribute('aria-label', describe(f));
+        p.setAttribute('aria-pressed', String(f === selected));
+        p.addEventListener('focus', () => { current = f.id; hint.textContent = describe(f); });
+        p.addEventListener('blur', () => { hint.textContent = hintText; });
+        p.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(f); return; }
+          const i = order.indexOf(f);
+          if (e.key === 'Home') { e.preventDefault(); go(order[0].id); return; }
+          if (e.key === 'End') { e.preventDefault(); go(order[order.length - 1].id); return; }
+          const d = DIR[e.key];
+          if (!d) return;
+          e.preventDefault();
+          const [cx, cy] = centre.get(f.id);
+          let best = null, score = Infinity;
+          feats.forEach(g => {
+            if (g === f) return;
+            const [x, y] = centre.get(g.id);
+            const along = (x - cx) * d[0] + (y - cy) * d[1];
+            const across = Math.abs((x - cx) * d[1]) + Math.abs((y - cy) * d[0]);
+            if (along <= 1 || across > along * 1.5) return;
+            const sc = along + across * 2;
+            if (sc < score) { score = sc; best = g; }
+          });
+          if (best) go(best.id);
+        });
+      });
+      if (refocus) el.get(current).focus();
     }
 
     cfg.measures.forEach((m, i) => {
